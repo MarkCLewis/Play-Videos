@@ -1,0 +1,11 @@
+@(max: Int)
+
+@main("Multiplication Table") {
+	<table>
+	@for(i <- 1 to max) {
+		<tr>
+			@for(j <- 1 to max) { <td>@(i*j)</td> }
+		</tr>
+	}
+	</table>
+}

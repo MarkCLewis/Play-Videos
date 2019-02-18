@@ -4,6 +4,7 @@
 
 # Home page
 GET        /                             edu.trinity.webapps.controllers.Application.index
+GET	       /multTable					 edu.trinity.webapps.controllers.Application.workForMe
 
 # Prefix must match `play.assets.urlPrefix`
 GET        /assets/*file                 controllers.Assets.at(file)
