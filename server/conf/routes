@@ -3,8 +3,12 @@
 # ~~~~
 
 # Home page
-GET        /                             edu.trinity.webapps.controllers.Application.index
-GET	       /multTable					 edu.trinity.webapps.controllers.Application.workForMe
+GET        /                 edu.trinity.webapps.controllers.Application.index
+GET	       /multTable		 edu.trinity.webapps.controllers.Application.multTable
+
+# Temperature stuff
+GET		/tempWelcome		edu.trinity.webapps.controllers.TempController.welcome
+GET		/tempMonth			edu.trinity.webapps.controllers.TempController.month(m: Int, y: Int)
 
 # Prefix must match `play.assets.urlPrefix`
 GET        /assets/*file                 controllers.Assets.at(file)

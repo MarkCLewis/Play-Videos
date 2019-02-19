@@ -12,7 +12,7 @@ class Application @Inject()(cc: ControllerComponents) extends AbstractController
     Ok(views.html.index("What happens?"))//SharedMessages.itWorks))
   }
   
-  def workForMe = Action {
+  def multTable = Action {
     Ok(views.html.multTable(12))
   }
 
