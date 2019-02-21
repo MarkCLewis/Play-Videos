@@ -9,11 +9,16 @@ import play.api.mvc._
 class Application @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
   def index = Action {
-    Ok(views.html.index("What happens?"))//SharedMessages.itWorks))
+    Ok(views.html.index("What happens?<script>alert('hahahaha')</script>"))
+        //SharedMessages.itWorks))
   }
   
   def multTable = Action {
     Ok(views.html.multTable(12))
+  }
+
+  def deepFile = Action {
+    Ok("This isn't a file.")
   }
 
 }
