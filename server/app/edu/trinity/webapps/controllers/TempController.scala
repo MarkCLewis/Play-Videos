@@ -10,6 +10,7 @@ class TempController @Inject()(cc: ControllerComponents) extends AbstractControl
   }
   
   def month(m: Int, y: Int) = Action {
-    Ok(m+"/"+y)
+    val monthData = models.TempDataModel.monthData(m, y)
+    Ok(views.html.monthTable(m, y, monthData))
   }
 }
