@@ -10,6 +10,7 @@ lazy val server = (project in file("server")).settings(commonSettings).settings(
   libraryDependencies ++= Seq(
     "com.vmunier" %% "scalajs-scripts" % "1.1.2",
     guice,
+		"org.scalatestplus.play" %% "scalatestplus-play" % "4.0.0" % "test",
     specs2 % Test
   ),
   // Compile the project before generating Eclipse files, so that generated .scala or .class files for views and routes are present
