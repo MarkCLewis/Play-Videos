@@ -1,9 +1,28 @@
 @* tempWelcome Template File *@
-@()
+@(monthYearForm: Form[edu.trinity.webapps.controllers.MonthYear])
 
 @main("Historical Temps for SA") {
 	<h2>Historical San Antonio Temps</h2>
-	<form>
+	GET -
+	<form action="temp" method="get">
 		<input type="text" name="month"></input>/<input type="text" name="year"></input>
+		<input type="submit"></input>
 	</form>
+	<br>
+	POST -
+	<form action="temp" method="post">
+		<input type="text" name="month"></input>/<input type="text" name="year"></input>
+		<input type="submit"></input>
+	</form>
+	<br>
+	Play POST -
+	@helper.form(action = routes.TempController.postMonthForm) {
+		@helper.inputText(productForm("month"))
+		@helper.inputText(productForm("year"))
+		<div class="form-actions">
+			<button type="submit">View Month</button>
+		</div>
+}
+	
+	
 }
