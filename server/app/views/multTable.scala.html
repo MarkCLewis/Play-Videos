@@ -1,5 +1,8 @@
 @(max: Int)
 
+@foo(x: Int) = { @(x*x) }
+
+
 @main("Multiplication Table") {
 	<table>
 	@for(i <- 1 to max) {
@@ -8,4 +11,7 @@
 		</tr>
 	}
 	</table>
+	<p>
+		@foo(3) &lt; @foo(5)
+	</p>
 }

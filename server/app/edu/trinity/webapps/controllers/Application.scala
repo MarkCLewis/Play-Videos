@@ -9,12 +9,17 @@ import play.api.i18n._
 @Singleton
 class Application @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
-  def index = Action { implicit request =>
-    Ok(views.html.index("What happens?"))//SharedMessages.itWorks))
+  def index = Action {
+    Ok(views.html.index("What happens?<script>alert('hahahaha')</script>"))
+        //SharedMessages.itWorks))
   }
   
   def multTable = Action {
     Ok(views.html.multTable(12))
+  }
+
+  def deepFile = Action {
+    Ok("This isn't a file.")
   }
 
 }

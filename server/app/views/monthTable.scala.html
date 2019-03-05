@@ -1,0 +1,13 @@
+@* monthTable Template File *@
+@(month: Int, year: Int, data: Array[TempData])
+
+@main("Temp Table for "+month+"/"+year) {
+	<table>
+		@for(row <- data) {
+			<tr>
+				<td>@row.day</td>
+				<td>@row.tmax</td>
+			</tr>
+		}
+	</table>
+}
