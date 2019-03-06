@@ -8,7 +8,7 @@ import play.api.data.Forms._
 case class MonthYear(month: Int, year: Int)
 
 @Singleton
-class TempController @Inject() (cc: ControllerComponents) extends AbstractController(cc) {
+class TempController @Inject() (cc: MessagesControllerComponents) extends MessagesAbstractController(cc) {
   val monthForm = Form(mapping(
     "month" -> number(1, 12),
     "year" -> number(1946, 2014))(MonthYear.apply)(MonthYear.unapply))
@@ -38,7 +38,7 @@ class TempController @Inject() (cc: ControllerComponents) extends AbstractContro
 
   def postMonthForm = Action { implicit request =>
     monthForm.bindFromRequest.fold(
-      formWithErrors => BadRequest,
+      formWithErrors => BadRequest(views.html.tempWelcome(formWithErrors)),
       monthYear => {
         val monthData = models.TempDataModel.monthData(monthYear.month, monthYear.year)
         Ok(views.html.monthTable(monthYear.month, monthYear.year, monthData))
