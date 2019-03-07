@@ -11,12 +11,14 @@
 	<br>
 	POST -
 	<form action="temp" method="post">
+		@helper.CSRF.formField
 		<input type="text" name="month"></input>/<input type="text" name="year"></input>
 		<input type="submit"></input>
 	</form>
 	<br>
 	Play POST -
 	@helper.form(action = edu.trinity.webapps.controllers.routes.TempController.postMonthForm()) {
+		@helper.CSRF.formField
 		@helper.inputText(monthYearForm("month"))
 		@helper.inputText(monthYearForm("year"))
 		<div class="form-actions">

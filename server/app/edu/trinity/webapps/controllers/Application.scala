@@ -22,4 +22,17 @@ class Application @Inject()(cc: ControllerComponents) extends AbstractController
     Ok("This isn't a file.")
   }
   
+  def enterName = Action { implicit request =>
+    Ok(views.html.enterName(request.session.get("username")))
+  }
+  
+  def rememberName(name: String) = Action { implicit request =>
+    Redirect(routes.Application.enterName).
+      withSession("username" -> name, "userid" -> "000")
+  }
+  
+  def forgetName = Action { implicit request =>
+    Redirect(routes.Application.enterName).withNewSession
+  }
+  
 }

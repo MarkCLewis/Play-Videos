@@ -1,0 +1,10 @@
+@* enterName Template File *@
+@(name: Option[String])
+
+@main("Name and Session") {
+	<p>Hello, @name.getOrElse("unnamed").</p>
+	<form action="rememberName" method="get">
+		<input type="text" name="name"></input>
+		<input type="submit"></input>
+	</form>
+}
