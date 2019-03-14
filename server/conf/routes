@@ -3,18 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /                 	edu.trinity.webapps.controllers.Application.index
-GET	    /multTable		 	edu.trinity.webapps.controllers.Application.multTable
-GET		/deep/nested/file 	edu.trinity.webapps.controllers.Application.deepFile
-GET		/enterName			edu.trinity.webapps.controllers.Application.enterName
-GET		/rememberName		edu.trinity.webapps.controllers.Application.rememberName(name)
-GET		/forgetName			edu.trinity.webapps.controllers.Application.forgetName
-
-# Temperature stuff
-GET		/tempWelcome		edu.trinity.webapps.controllers.TempController.welcome
-GET		/temp				edu.trinity.webapps.controllers.TempController.month(month: Int, year: Int)
-POST	/temp				edu.trinity.webapps.controllers.TempController.postMonth
-POST	/tempForm			edu.trinity.webapps.controllers.TempController.postMonthForm
+GET     /                 	controllers.Application.index
 
 # Prefix must match `play.assets.urlPrefix`
 GET        /assets/*file                 controllers.Assets.at(file)

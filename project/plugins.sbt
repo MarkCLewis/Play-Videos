@@ -8,7 +8,7 @@ resolvers += "Typesafe repository" at "https://repo.typesafe.com/typesafe/releas
 
 // Use Scala.js 0.6.x
 addSbtPlugin("com.vmunier"                  % "sbt-web-scalajs"           % "1.0.8-0.6")
-addSbtPlugin("org.scala-js"                 % "sbt-scalajs"               % "0.6.23")
+addSbtPlugin("org.scala-js"                 % "sbt-scalajs"               % "0.6.26")
 // If you prefer using Scala.js 1.x, uncomment the following plugins instead:
 // addSbtPlugin("com.vmunier"               % "sbt-web-scalajs"           % "1.0.8")
 // addSbtPlugin("org.scala-js"              % "sbt-scalajs"               % "1.0.0-M3")

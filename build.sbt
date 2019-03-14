@@ -1,7 +1,7 @@
 import sbtcrossproject.{crossProject, CrossType}
 
 lazy val server = (project in file("server")).settings(commonSettings).settings(
-	name := "CSCI3345-S19-Server",
+	name := "Play-Videos-Server",
   scalaJSProjects := Seq(client),
   pipelineStages in Assets := Seq(scalaJSPipeline),
   pipelineStages := Seq(digest, gzip),
@@ -10,7 +10,6 @@ lazy val server = (project in file("server")).settings(commonSettings).settings(
   libraryDependencies ++= Seq(
     "com.vmunier" %% "scalajs-scripts" % "1.1.2",
     guice,
-		"org.scalatestplus.play" %% "scalatestplus-play" % "4.0.0" % "test",
     specs2 % Test
   ),
   // Compile the project before generating Eclipse files, so that generated .scala or .class files for views and routes are present
@@ -19,10 +18,12 @@ lazy val server = (project in file("server")).settings(commonSettings).settings(
   dependsOn(sharedJvm)
 
 lazy val client = (project in file("client")).settings(commonSettings).settings(
-	name := "CSCI3345-S19-Client",
+	name := "Play-Videos-Client",
   scalaJSUseMainModuleInitializer := true,
   libraryDependencies ++= Seq(
-    "org.scala-js" %%% "scalajs-dom" % "0.9.5"
+    "org.scala-js" %%% "scalajs-dom" % "0.9.5",
+		"org.querki" %%% "jquery-facade" % "1.2",
+		"com.typesafe.play" %%% "play-json" % "2.7.0"
   )
 ).enablePlugins(ScalaJSPlugin, ScalaJSWeb).
   dependsOn(sharedJs)
@@ -31,13 +32,16 @@ lazy val shared = crossProject(JSPlatform, JVMPlatform)
   .crossType(CrossType.Pure)
   .in(file("shared"))
   .settings(
-		name := "CSCI3345-S19-Shared",
-		commonSettings)
+		name := "Play-Videos-Shared",
+		commonSettings,
+		libraryDependencies ++= Seq(
+			"com.typesafe.play" %%% "play-json" % "2.7.0"
+		))
 lazy val sharedJvm = shared.jvm
 lazy val sharedJs = shared.js
 
 lazy val commonSettings = Seq(
-  scalaVersion := "2.12.5",
+  scalaVersion := "2.12.8",
   organization := "edu.trinity"
 )
 

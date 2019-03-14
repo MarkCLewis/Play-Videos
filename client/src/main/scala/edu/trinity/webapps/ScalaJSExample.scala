@@ -1,6 +1,6 @@
 package edu.trinity.webapps
 
-import edu.trinity.webapps.shared.SharedMessages
+import shared.SharedMessages
 import org.scalajs.dom
 
 object ScalaJSExample {

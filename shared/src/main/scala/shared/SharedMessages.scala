@@ -1,4 +1,4 @@
-package edu.trinity.webapps.shared
+package shared
 
 object SharedMessages {
   def itWorks = "It works!"
