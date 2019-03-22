@@ -1,4 +1,4 @@
-# CSCI3345-S19-Play-Scalajs
+# Play-Scalajs for video series
 
-This repository has all the code that we are writing in class using Play
+This repository has the code for my video series using Play
 and Scala.js.
