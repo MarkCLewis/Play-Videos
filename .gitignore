@@ -15,6 +15,9 @@ dist
 .settings
 .DS_Store
 
+.cache-main
+.cache-tests
+
 # hidden cross project folders
 shared/.js
 shared/.jvm
