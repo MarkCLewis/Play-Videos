@@ -5,6 +5,8 @@
 # Home page
 GET     /                 	controllers.Application.index
 
+GET		/taskList1			controllers.Todo1Controller.taskList
+
 # Prefix must match `play.assets.urlPrefix`
 GET        /assets/*file                 controllers.Assets.at(file)
 GET        /versionedAssets/*file        controllers.Assets.versioned(path="/public", file: Asset)
