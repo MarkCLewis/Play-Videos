@@ -12,5 +12,8 @@ class Application @Inject()(cc: ControllerComponents) extends AbstractController
   def index = Action {
     Ok(views.html.index(SharedMessages.itWorks))
   }
-    
+
+  def product(prodType: String, prodNum: Int) = Action {
+    Ok(s"Product type is: $prodType, product number is: $prodNum")
+  }
 }
