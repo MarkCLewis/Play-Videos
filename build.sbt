@@ -23,7 +23,7 @@ lazy val client = (project in file("client")).settings(commonSettings).settings(
   libraryDependencies ++= Seq(
     "org.scala-js" %%% "scalajs-dom" % "0.9.5",
 		"org.querki" %%% "jquery-facade" % "1.2",
-		"com.typesafe.play" %%% "play-json" % "2.7.0"
+		"com.typesafe.play" %%% "play-json" % "2.7.2"
   )
 ).enablePlugins(ScalaJSPlugin, ScalaJSWeb).
   dependsOn(sharedJs)
@@ -35,7 +35,7 @@ lazy val shared = crossProject(JSPlatform, JVMPlatform)
 		name := "Play-Videos-Shared",
 		commonSettings,
 		libraryDependencies ++= Seq(
-			"com.typesafe.play" %%% "play-json" % "2.7.0"
+			"com.typesafe.play" %%% "play-json" % "2.7.2"
 		))
 lazy val sharedJvm = shared.jvm
 lazy val sharedJs = shared.js
