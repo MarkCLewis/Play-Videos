@@ -5,7 +5,7 @@
 # Home page
 GET     /                 	controllers.Application.index
 
-GET		/taskList1			controllers.Todo1Controller.taskList
+GET		/taskList1			controllers.TaskList1.taskList
 
 # Prefix must match `play.assets.urlPrefix`
 GET        /assets/*file                 controllers.Assets.at(file)
