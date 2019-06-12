@@ -1,0 +1,37 @@
+@* login1 Template File *@
+@()
+
+@main("Login") {
+	<h2>Login</h2>
+	
+	<form method="get" action="/validateGet1">
+		<h3>GET submission (not secure)</h3>
+		<br>
+		Username: <input type="text" name="username"></input>
+		<br>
+		Password: <input type="password" name="password"></input>
+		<br>
+		<input type="submit"></input>
+	</form>
+	
+	<form method="post" action="@routes.TaskList1.validateLoginPost()">
+		<h3>Login with POST</h3>
+		<br>
+		Username: <input type="text" name="username"></input>
+		<br>
+		Password: <input type="password" name="password"></input>
+		<br>
+		<input type="submit"></input>
+	</form>
+	
+	<form method="post" action="@routes.TaskList1.createUser()">
+		<h3>Create User</h3>
+		<br>
+		Username: <input type="text" name="username"></input>
+		<br>
+		Password: <input type="password" name="password"></input>
+		<br>
+		<input type="submit"></input>
+	</form>
+
+}
