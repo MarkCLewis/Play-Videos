@@ -1,5 +1,5 @@
 @* taskList1 Template File *@
-@(tasks: Seq[String])
+@(tasks: Seq[String])(implicit request: RequestHeader, flash: Flash)
 
 @main("Task List") {
 	<h2>Task List</h2>
@@ -9,6 +9,12 @@
 			<li>@task</li>
 		}
 	</ul>
+	
+	<form method="post" action="@routes.TaskList1.addTask()">
+		@helper.CSRF.formField
+		<input type="text" name="newTask"></input>
+		<input type="submit"></input>
+	</form>
 	
 	<div>
 		<a href="@routes.TaskList1.logout()">Logout</a>
