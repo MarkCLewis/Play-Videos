@@ -1,5 +1,5 @@
 @* login1 Template File *@
-@()(implicit request: RequestHeader, flash: Flash)
+@(loginForm: Form[LoginData])(implicit request: MessagesRequestHeader, flash: Flash)
 
 @main("Login") {
 	<h2>Login</h2>
@@ -35,5 +35,16 @@
 		<br>
 		<input type="submit"></input>
 	</form>
+
+	@helper.form(action = routes.TaskList1.createUserForm()) {
+		Create User with Play Form<br>
+		@helper.CSRF.formField
+		@helper.inputText(loginForm("Username"))
+		@helper.inputPassword(loginForm("Password"))
+		<div class="form-actions">
+			<button type="submit">Login</button>
+		</div>
+	}
+	
 
 }

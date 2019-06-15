@@ -12,9 +12,11 @@ GET		/login1							controllers.TaskList1.login
 GET		/validateGet1					controllers.TaskList1.valdiateLoginGet(username, password)
 POST	/validatePost1					controllers.TaskList1.validateLoginPost
 POST	/createUser1					controllers.TaskList1.createUser
+POST	/createUserForm1				controllers.TaskList1.createUserForm
 GET		/taskList1						controllers.TaskList1.taskList
 GET		/logout1						controllers.TaskList1.logout
 POST	/addTask1						controllers.TaskList1.addTask
+POST	/deleteTask1					controllers.TaskList1.deleteTask
 
 # Prefix must match `play.assets.urlPrefix`
 GET        /assets/*file                 controllers.Assets.at(file)
