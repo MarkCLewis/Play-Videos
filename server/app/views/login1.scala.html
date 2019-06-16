@@ -37,8 +37,8 @@
 	</form>
 
 	@helper.form(action = routes.TaskList1.createUserForm()) {
-		Create User with Play Form<br>
 		@helper.CSRF.formField
+		<h3>Create User with Play Form</h3>
 		@helper.inputText(loginForm("Username"))
 		@helper.inputPassword(loginForm("Password"))
 		<div class="form-actions">

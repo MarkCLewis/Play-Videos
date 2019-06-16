@@ -7,6 +7,8 @@ GET     /                 				controllers.Application.index
 GET		/productArgs					controllers.Application.product(prodType, prodNum: Int)
 GET		/product/:prodType/:prodNum		controllers.Application.product(prodType, prodNum: Int)
 GET		/productRE/$prodType<[a-z]{2}\d\d>/:prodNum controllers.Application.product(prodType, prodNum: Int)
+GET		/random							controllers.Application.randomNumber
+GET		/randomString/:length			controllers.Application.randomString(length: Int)			
 
 GET		/login1							controllers.TaskList1.login
 GET		/validateGet1					controllers.TaskList1.valdiateLoginGet(username, password)
