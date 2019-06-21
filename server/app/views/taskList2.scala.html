@@ -1,0 +1,23 @@
+@* taskList2 Template File *@
+@(tasks: Seq[String])
+
+<h2>Task List</h2>
+	
+<ul>
+	@for((task, i) <- tasks.zipWithIndex) {
+		<li>@task</li>
+		<form method="post" action="@routes.TaskList1.deleteTask">
+			<input type="hidden" name="index" value="@i"/>
+			<input type="submit" value="Delete"/>
+		</form>
+	}
+</ul>
+
+<form method="post" action="@routes.TaskList1.addTask()">
+	<input type="text" name="newTask"></input>
+	<input type="submit"></input>
+</form>
+
+<div>
+	<a href="@routes.TaskList1.logout()">Logout</a>
+</div>
