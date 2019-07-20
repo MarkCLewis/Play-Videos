@@ -24,10 +24,11 @@ POST	/deleteTask1					controllers.TaskList1.deleteTask
 #Routes for version 2
 GET		/load2							controllers.TaskList2.load
 GET		/login2							controllers.TaskList2.login
-GET		/validate2						controllers.TaskList2.validate(username, password)
-GET		/create2						controllers.TaskList2.createUser(username, password)
-GET		/deleteTask2					controllers.TaskList2.delete(index: Int)
-GET		/addTask2						controllers.TaskList2.addTask(task)
+GET		/taskList2						controllers.TaskList2.taskList
+POST	/validate2						controllers.TaskList2.validate
+POST	/create2						controllers.TaskList2.createUser
+POST	/deleteTask2					controllers.TaskList2.delete
+POST	/addTask2						controllers.TaskList2.addTask
 GET		/logout2						controllers.TaskList2.logout
 GET		/generatedJS					controllers.TaskList2.generatedJS
 
