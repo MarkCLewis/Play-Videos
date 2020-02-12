@@ -25,13 +25,16 @@ POST	/deleteTask1					controllers.TaskList1.deleteTask
 GET		/load2							controllers.TaskList2.load
 GET		/login2							controllers.TaskList2.login
 GET		/taskList2						controllers.TaskList2.taskList
-+ nocsrf
 POST	/validate2						controllers.TaskList2.validate
 POST	/create2						controllers.TaskList2.createUser
 POST	/deleteTask2					controllers.TaskList2.delete
 POST	/addTask2						controllers.TaskList2.addTask
 GET		/logout2						controllers.TaskList2.logout
 GET		/generatedJS					controllers.TaskList2.generatedJS
+
+#Routes for version 3
+GET   /load3            controllers.TaskList3.load
+GET   /data             controllers.TaskList3.data
 
 # Prefix must match `play.assets.urlPrefix`
 GET        /assets/*file                 controllers.Assets.at(file)
