@@ -25,11 +25,15 @@ class TaskList3 @Inject() (cc: ControllerComponents) extends AbstractController(
     }.getOrElse(Redirect(routes.TaskList3.load()))
   }
 
+  def withSessionUsername(f: String => Result)(implicit request: Request[AnyContent]) = {
+    request.session.get("username").map(f).getOrElse(Ok(Json.toJson(Seq.empty[String])))
+  }
+
   def validate = Action { implicit request =>
     withJsonBody[UserData] { ud =>
       if (TaskListInMemoryModel.validateUser(ud.username, ud.password)) {
         Ok(Json.toJson(true))
-          .withSession("username" -> ud.username, "csrfToken" -> play.filters.csrf.CSRF.getToken.get.value)
+          .withSession("username" -> ud.username, "csrfToken" -> play.filters.csrf.CSRF.getToken.map(_.value).getOrElse(""))
       } else {
         Ok(Json.toJson(false))
       }
@@ -37,56 +41,41 @@ class TaskList3 @Inject() (cc: ControllerComponents) extends AbstractController(
   }
 
   def createUser = Action { implicit request =>
-    request.body.asJson.map { body =>
-      Json.fromJson[UserData](body) match {
-        case JsSuccess(ud, path) =>
-          if (TaskListInMemoryModel.createUser(ud.username, ud.password)) {
-            Ok(Json.toJson(true))
-              .withSession("username" -> ud.username, "csrfToken" -> play.filters.csrf.CSRF.getToken.get.value)
-          } else {
-            Ok(Json.toJson(false))
-          }
-        case e @ JsError(_) => Redirect(routes.TaskList3.load())
+    withJsonBody[UserData] { ud =>
+      if (TaskListInMemoryModel.createUser(ud.username, ud.password)) {
+        Ok(Json.toJson(true))
+          .withSession("username" -> ud.username, "csrfToken" -> play.filters.csrf.CSRF.getToken.map(_.value).getOrElse(""))
+      } else {
+        Ok(Json.toJson(false))
       }
-    }.getOrElse(Redirect(routes.TaskList3.load()))
+    }
   }
 
   def taskList = Action { implicit request =>
-    val usernameOption = request.session.get("username")
-    usernameOption.map { username =>
+    withSessionUsername { username =>
       Ok(Json.toJson(TaskListInMemoryModel.getTasks(username)))
-    }.getOrElse(Ok(Json.toJson(Seq.empty[String])))
+    }
   }
 
   def addTask = Action { implicit request =>
-    val usernameOption = request.session.get("username")
-    usernameOption.map { username =>
-      request.body.asJson.map { body =>
-        Json.fromJson[String](body) match {
-          case JsSuccess(task, path) =>
-            TaskListInMemoryModel.addTask(username, task);
-            Ok(Json.toJson(true))
-          case e @ JsError(_) => Redirect(routes.TaskList3.load())
-        }
-      }.getOrElse(Ok(Json.toJson(false)))
-    }.getOrElse(Ok(Json.toJson(false)))
+    withSessionUsername { username =>
+      withJsonBody[String] { task =>
+        TaskListInMemoryModel.addTask(username, task);
+        Ok(Json.toJson(true))
+      }
+    }
   }
 
   def delete = Action { implicit request =>
-    val usernameOption = request.session.get("username")
-    usernameOption.map { username =>
-      request.body.asJson.map { body =>
-        Json.fromJson[Int](body) match {
-          case JsSuccess(index, path) =>
-            TaskListInMemoryModel.removeTask(username, index)
-            Ok(Json.toJson(true))
-          case e @ JsError(_) => Redirect(routes.TaskList3.load())
-        }
-      }.getOrElse(Ok(Json.toJson(false)))
-    }.getOrElse(Ok(Json.toJson(false)))
+    withSessionUsername { username =>
+      withJsonBody[Int] { index =>
+        TaskListInMemoryModel.removeTask(username, index)
+        Ok(Json.toJson(true))
+      }
+    }
   }
 
   def logout = Action { implicit request =>
-    Ok(Json.toJson(true)).withNewSession
+    Ok(Json.toJson(true)).withSession(request.session - "username")
   }
 }

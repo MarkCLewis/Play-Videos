@@ -39,7 +39,7 @@ POST	/create3						controllers.TaskList3.createUser
 GET 	/taskList3						controllers.TaskList3.taskList
 POST	/addTask3						controllers.TaskList3.addTask
 POST	/deleteTask3					controllers.TaskList3.delete
-GET		/logout3						controllers.TaskList3.logout
+GET  /logout3						controllers.TaskList3.logout
 
 # Prefix must match `play.assets.urlPrefix`
 GET        /assets/*file                 controllers.Assets.at(file)
