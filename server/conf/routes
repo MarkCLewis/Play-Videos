@@ -45,6 +45,10 @@ GET  /logout3						controllers.TaskList3.logout
 GET   /chat             controllers.WebSocketChat.index
 GET   /chatSocket       controllers.WebSocketChat.socket
 
+#Routes for version 4
+GET   /load4            controllers.TaskList4.load
+
+
 # Prefix must match `play.assets.urlPrefix`
 GET        /assets/*file                 controllers.Assets.at(file)
 GET        /versionedAssets/*file        controllers.Assets.versioned(path="/public", file: Asset)
