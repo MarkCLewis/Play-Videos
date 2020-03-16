@@ -17,7 +17,7 @@ class Version4MainComponent extends React.Component {
 
   render() {
     if (this.state.loggedIn) {
-      return ce(TaskListComponent);
+      return ce(TaskListComponent, { doLogout: () => this.setState( { loggedIn: false})});
     } else {
       return ce(LoginComponent, { doLogin: () => this.setState( { loggedIn: true }) });
     }
@@ -76,21 +76,93 @@ class LoginComponent extends React.Component {
     }).then(res => res.json()).then(data => {
       if(data) {
         this.props.doLogin();
-        // document.getElementById("login-section").hidden = true;
-        // document.getElementById("task-section").hidden = false;
-        // document.getElementById("login-message").innerHTML = "";
-        // document.getElementById("create-message").innerHTML = "";
-        // loadTasks();
       } else {
         this.setState({ loginMessage: "Login Failed" });
+      }
+    });
+  }
+
+  createUser() {
+    const username = this.state.createName;
+    const password = this.state.createPass;
+    fetch(createRoute, { 
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'Csrf-Token': csrfToken },
+      body: JSON.stringify({ username, password })
+    }).then(res => res.json()).then(data => {
+      if(data) {
+        this.props.doLogin();
+      } else {
+        this.setState({ createMessage: "User Creation Failed"});
       }
     });
   }
 }
 
 class TaskListComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { tasks: [], newTask: "", taskMessage: "" };
+  }
+
+  componentDidMount() {
+    this.loadTasks();
+  }
+
   render() {
-    return ce('div', null, 'Task List');
+    return ce('div', null, 
+      'Task List',
+      ce('br'),
+      ce('ul', null,
+        this.state.tasks.map((task, index) => ce('li', { key: index, onClick: e => this.handleDeleteClick(index) }, task))
+      ),
+      ce('br'),
+      ce('div', null,
+        ce('input', {type: 'text', value: this.state.newTask, onChange: e => this.handleChange(e) }),
+        ce('button', {onClick: e => this.handleAddClick(e)}, 'Add Task'),
+        this.state.taskMessage
+      ),
+      ce('br'),
+      ce('button', { onClick: e => this.props.doLogout() }, 'Log out')
+    );
+  }
+
+  loadTasks() {
+    fetch(tasksRoute).then(res => res.json()).then(tasks => this.setState({ tasks }));
+  }
+
+  handleChange(e) {
+    this.setState({newTask: e.target.value})
+  }
+
+  handleAddClick(e) {
+    fetch(addRoute, { 
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'Csrf-Token': csrfToken },
+      body: JSON.stringify(this.state.newTask)
+    }).then(res => res.json()).then(data => {
+      if(data) {
+        this.loadTasks();
+        this.setState({ taskMessage: "", newTask: "" });
+      } else {
+        this.setState({ taskMessage: "Failed to add." });
+      }
+    });
+  }
+
+  handleDeleteClick(i) {
+    fetch(deleteRoute, { 
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'Csrf-Token': csrfToken },
+      body: JSON.stringify(i)
+    }).then(res => res.json()).then(data => {
+      if(data) {
+        this.loadTasks();
+        this.setState({ taskMessage: "" });
+      } else {
+        this.setState({ taskMessage: "Failed to delete."});
+      }
+    });
   }
 }
 
