@@ -13,7 +13,10 @@ lazy val server = (project in file("server")).settings(commonSettings).settings(
     "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test,
 		"com.typesafe.play" %% "play-slick" % "5.0.0",
 		"com.typesafe.slick" %% "slick-codegen" % "3.3.2",
-		"com.typesafe.play" %% "play-json" % "2.8.1",
+    "com.typesafe.play" %% "play-json" % "2.8.1",
+    "org.postgresql" % "postgresql" % "42.2.11",
+    "com.typesafe.slick" %% "slick-hikaricp" % "3.3.2",
+    "org.mindrot" % "jbcrypt" % "0.4",
     specs2 % Test
   ),
   // Compile the project before generating Eclipse files, so that generated .scala or .class files for views and routes are present
