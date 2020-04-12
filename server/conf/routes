@@ -48,6 +48,15 @@ GET   /chatSocket       controllers.WebSocketChat.socket
 #Routes for version 4
 GET   /load4            controllers.TaskList4.load
 
+#Routes for version 5
+GET   /load5            controllers.TaskList5.load
+POST	/validate5						controllers.TaskList5.validate
+POST	/create5						controllers.TaskList5.createUser
+GET 	/taskList5						controllers.TaskList5.taskList
+POST	/addTask5						controllers.TaskList5.addTask
+POST	/deleteTask5					controllers.TaskList5.delete
+GET  /logout5						controllers.TaskList5.logout
+
 
 # Prefix must match `play.assets.urlPrefix`
 GET        /assets/*file                 controllers.Assets.at(file)

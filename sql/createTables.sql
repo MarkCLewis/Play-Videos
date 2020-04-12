@@ -6,6 +6,6 @@ CREATE TABLE users (
 
 CREATE TABLE items (
 	item_id SERIAL PRIMARY KEY,
-	user_id int4 REFERENCES users(id) ON DELETE CASCADE,
-	text varchar(2000)
+	user_id int4 NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+	text varchar(2000) NOT NULL
 );

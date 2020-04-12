@@ -20,29 +20,29 @@ trait Tables {
 
   /** Entity class storing rows of table Items
    *  @param itemId Database column item_id SqlType(serial), AutoInc, PrimaryKey
-   *  @param userId Database column user_id SqlType(int4), Default(None)
-   *  @param text Database column text SqlType(varchar), Length(2000,true), Default(None) */
-  case class ItemsRow(itemId: Int, userId: Option[Int] = None, text: Option[String] = None)
+   *  @param userId Database column user_id SqlType(int4)
+   *  @param text Database column text SqlType(varchar), Length(2000,true) */
+  case class ItemsRow(itemId: Int, userId: Int, text: String)
   /** GetResult implicit for fetching ItemsRow objects using plain SQL queries */
-  implicit def GetResultItemsRow(implicit e0: GR[Int], e1: GR[Option[Int]], e2: GR[Option[String]]): GR[ItemsRow] = GR{
+  implicit def GetResultItemsRow(implicit e0: GR[Int], e1: GR[String]): GR[ItemsRow] = GR{
     prs => import prs._
-    ItemsRow.tupled((<<[Int], <<?[Int], <<?[String]))
+    ItemsRow.tupled((<<[Int], <<[Int], <<[String]))
   }
   /** Table description of table items. Objects of this class serve as prototypes for rows in queries. */
   class Items(_tableTag: Tag) extends profile.api.Table[ItemsRow](_tableTag, "items") {
     def * = (itemId, userId, text) <> (ItemsRow.tupled, ItemsRow.unapply)
     /** Maps whole row to an option. Useful for outer joins. */
-    def ? = ((Rep.Some(itemId), userId, text)).shaped.<>({r=>import r._; _1.map(_=> ItemsRow.tupled((_1.get, _2, _3)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def ? = ((Rep.Some(itemId), Rep.Some(userId), Rep.Some(text))).shaped.<>({r=>import r._; _1.map(_=> ItemsRow.tupled((_1.get, _2.get, _3.get)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
 
     /** Database column item_id SqlType(serial), AutoInc, PrimaryKey */
     val itemId: Rep[Int] = column[Int]("item_id", O.AutoInc, O.PrimaryKey)
-    /** Database column user_id SqlType(int4), Default(None) */
-    val userId: Rep[Option[Int]] = column[Option[Int]]("user_id", O.Default(None))
-    /** Database column text SqlType(varchar), Length(2000,true), Default(None) */
-    val text: Rep[Option[String]] = column[Option[String]]("text", O.Length(2000,varying=true), O.Default(None))
+    /** Database column user_id SqlType(int4) */
+    val userId: Rep[Int] = column[Int]("user_id")
+    /** Database column text SqlType(varchar), Length(2000,true) */
+    val text: Rep[String] = column[String]("text", O.Length(2000,varying=true))
 
     /** Foreign key referencing Users (database name items_user_id_fkey) */
-    lazy val usersFk = foreignKey("items_user_id_fkey", userId, Users)(r => Rep.Some(r.id), onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.Cascade)
+    lazy val usersFk = foreignKey("items_user_id_fkey", userId, Users)(r => r.id, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.Cascade)
   }
   /** Collection-like TableQuery object for table Items */
   lazy val Items = new TableQuery(tag => new Items(tag))
