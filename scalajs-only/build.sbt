@@ -8,7 +8,7 @@ ThisBuild / organizationName := "Trinity"
 
 lazy val root = (project in file("."))
   .settings(
-    name := "CSCI3345-ScalaJS-only",
+    name := "ScalaJS-only",
     libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.0.0",
     libraryDependencies += scalaTest % Test,
 		scalaJSUseMainModuleInitializer := true

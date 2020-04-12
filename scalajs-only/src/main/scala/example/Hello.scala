@@ -9,5 +9,6 @@ import org.scalajs.dom.html
 object Hello {
   def main(args: Array[String]): Unit = {
     println("Hello World.")
+    for (i <- 1 to 10) println(i) 
   }
 }
