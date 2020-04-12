@@ -73,6 +73,7 @@ class TaskList5 @Inject() (protected val dbConfigProvider: DatabaseConfigProvide
 
   def taskList = Action.async { implicit request =>
     withSessionUsername { username =>
+      println("!!! Getting tasks")
       model.getTasks(username).map(tasks => Ok(Json.toJson(tasks)))
     }
   }

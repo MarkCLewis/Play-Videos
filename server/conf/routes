@@ -57,6 +57,9 @@ POST	/addTask5						controllers.TaskList5.addTask
 POST	/deleteTask5					controllers.TaskList5.delete
 GET  /logout5						controllers.TaskList5.logout
 
+#Routes for version 6
+GET   /load6            controllers.TaskList6.load
+
 
 # Prefix must match `play.assets.urlPrefix`
 GET        /assets/*file                 controllers.Assets.at(file)
