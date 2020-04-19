@@ -60,6 +60,9 @@ GET  /logout5						controllers.TaskList5.logout
 #Routes for version 6
 GET   /load6            controllers.TaskList6.load
 
+#Routes for version 7
+GET   /load7            controllers.TaskList7.load
+
 
 # Prefix must match `play.assets.urlPrefix`
 GET        /assets/*file                 controllers.Assets.at(file)
