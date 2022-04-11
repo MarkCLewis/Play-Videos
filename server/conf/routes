@@ -67,3 +67,9 @@ GET   /load7            controllers.TaskList7.load
 # Prefix must match `play.assets.urlPrefix`
 GET        /assets/*file                 controllers.Assets.at(file)
 GET        /versionedAssets/*file        controllers.Assets.versioned(path="/public", file: Asset)
+
+#Pages
+GET        /Login/             controllers.Application.login()
+GET        /Student/          controllers.Application.student()
+GET        /Faculty/              controllers.Application.faculty()
+GET        /Ratings/              controllers.Application.ratings()

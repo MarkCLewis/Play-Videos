@@ -1,16 +1,16 @@
 @(message: String)(implicit flash: Flash)
 
-@main("Play with Scala.js") {
-	<h2>Play and Scala.js share a same message</h2>
-	<ul>
-	  <li>Play shouts out: <em>@message</em></li>
-	  <li>Scala.js shouts out: <em id="scalajsShoutOut"></em></li>
-	</ul>
-
-	<p id="randomText">Click for a new random number: <span id="random">4</span></p>
+@main("CS Hub.js") {
+	<nav> 
+		<a href="/login">Login</a> | 
+		<a href="/student/">Student</a> | 
+		<a href="/faculty/">Faculty</a> | 
+		<a href="/ratings/">Ratings</a> 
+	</nav> 
+	<br></br> 
+	<h2>CS Hub</h2> 
 	
-	<input id="lengthValue" type="text" value="5">
-	<p id="randomStringText">Click for a new random string: <span id="randomString">word</span></p>
-	
+	<p>Username: </p> <input id="lengthValue" type="text"> 
+	<p>Password: </p> <input id="lengthValue" type="text">
 	<script src="@routes.Assets.versioned("javascript/basicStuff.js")"></script>
 }
