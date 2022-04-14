@@ -1,0 +1,31 @@
+@* login1 Template File *@
+@()(implicit flash:play.api.mvc.Flash)
+
+
+
+
+@main("Login") {
+
+    <h2>Login Page</h2>
+
+    <!-- These are the logins for Faculty-->
+    <form method="get" action="/ValidateFaculty">
+		<h3>GET Faculty Login (not secure)</h3>
+		<br>
+		Username: <input type="text" name="username"></input>
+		<br>
+		Password: <input type="password" name="password"></input>
+		<br>
+		<input type="submit"></input>
+	</form>
+
+    <form method="get" action="/ValidateFacultyPost">
+		<h3>GET Faculty Login Post (not secure)</h3>
+		<br>
+		Username: <input type="text" name="username"></input>
+		<br>
+		Password: <input type="password" name="password"></input>
+		<br>
+		<input type="submit"></input>
+	</form>
+}
