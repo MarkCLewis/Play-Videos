@@ -2,6 +2,7 @@ package controllers
 
 import javax.inject._
 
+
 import shared.SharedMessages
 import play.api.mvc._
 import play.api.i18n._
@@ -33,9 +34,12 @@ class Application @Inject()(cc: ControllerComponents) extends AbstractController
       Ok("Student page here.")
     }
 
-  def faculty() = Action {
-      Ok("Faculty page here.")
+  def faculty() = Action { implicit request =>
+    // Below, this will present the Faculty page from views (HTML)
+      Ok(views.html.facultyLogin1())
+
     }
+
 
   def ratings() = Action {
       Ok("Ratings page here.")

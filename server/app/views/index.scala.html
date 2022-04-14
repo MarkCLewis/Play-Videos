@@ -1,16 +1,25 @@
 @(message: String)(implicit flash: Flash)
 
 @main("CS Hub.js") {
-	<nav> 
-		<a href="/login">Login</a> | 
+	
+	<!-- The links of each category -->
+	<nav>
+		<a href="/login">Login</a> |
 		<a href="/student/">Student</a> | 
-		<a href="/faculty/">Faculty</a> | 
-		<a href="/ratings/">Ratings</a> 
-	</nav> 
+		<a href="/Faculty/">Faculty</a> |
+		<a href="/ratings/">Ratings</a>
+	</nav>
+
+	<!-- I made this script to make the transiton to each page
+	     Function calls to the name given to the link and loc.replace
+		 is to the website of the given page. -->
+	<script> function Faculty() {
+			location.replace("http://localhost:9000/Faculty/")
+		}
+	</script>
+
 	<br></br> 
 	<h2>CS Hub</h2> 
 	
-	<p>Username: </p> <input id="lengthValue" type="text"> 
-	<p>Password: </p> <input id="lengthValue" type="text">
-	<script src="@routes.Assets.versioned("javascript/basicStuff.js")"></script>
+
 }
