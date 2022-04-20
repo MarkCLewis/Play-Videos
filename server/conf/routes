@@ -79,6 +79,10 @@ GET        /ValidateFaculty     controllers.Faculty.validateFaculty(username, pa
 GET        /ValidateFacultyPost controllers.Faculty.validateFacultyPost()
 # To Faculty user's profile.
 GET        /FacultyProfile      controllers.Faculty.profile()   
-GET        /Ratings/            controllers.Application.ratings()
+# FacultyPage
 
-#FacultyPage
+# Goes to rating page
+GET        /ratings/            controllers.Ratings.ratings()
+# "rate" action from Ratings controller 
+POST        /rate                controllers.Ratings.rate()
+
