@@ -1,0 +1,20 @@
+@* rating test page *@
+@(name: String)(rating: String)(implicit request: RequestHeader, flash: Flash)
+
+
+@main("Ratings") {
+
+    <h2>Rating Test Page</h2>
+
+	<!-- current rating -->
+	<br>
+	@name
+	<br>
+	Current Rating: @rating
+    <!-- form for getting ratings -->
+	<form method="post" action="@routes.Ratings.rate()">
+		<input type="number" name="newRating"></input>
+		<input type="submit"></input>
+	</form>
+
+}
