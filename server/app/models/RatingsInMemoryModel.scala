@@ -8,7 +8,10 @@ object RatingsInMemoryModel {
   
   //Gets rating from ratings
   def getRating(username: String): String = {
-    (ratings.get(username).getOrElse("")).toString
+    //rating list
+    var rList : List[Double] = ratings.get(username).getOrElse(List(0.0))
+    //average rating
+    (rList.sum / rList.length).toString
   }
   
   //Adds rating to ratings
