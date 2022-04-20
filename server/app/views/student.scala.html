@@ -1,0 +1,18 @@
+@(title: String)(content: Html)(implicit flash: Flash)
+
+<!DOCTYPE html>
+
+
+<br></br> 
+	<h3>Student, what would you like to do?</h3>
+		<select name="Options" size="7">
+			<option value="SPast"> View past courses </option>
+			<option value="SCurrent"> View current courses </option>
+			<option value="SFuture"> View future courses </option>
+			<option value="SCompleted"> View completed reviews </option>
+			<option value="SAccount"> Change account preferances </option>
+			<option value="SStudent"> Contact a student </option>
+			<option value="SProf"> Contact a professor </option>
+		</select>
+		<br></br> 
+		<button type="button">Submit</button>
