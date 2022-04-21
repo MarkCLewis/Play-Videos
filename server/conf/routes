@@ -71,16 +71,21 @@ GET        /assets/*file                 controllers.Assets.at(file)
 GET        /versionedAssets/*file        controllers.Assets.versioned(path="/public", file: Asset)
 
 #Pages
-GET        /Login/              controllers.Application.login()
-GET        /Student/            controllers.Application.student()
-GET        /Faculty/            controllers.Application.faculty()
-# Now, this will return a blank page with the username and password in my class.
-# And later, if the user and password are correct to the given category.
-# then it will reach to the profile of said user.
-GET        /ValidateFaculty     controllers.Faculty.validateFaculty(username, password)
-GET        /ValidateFacultyPost controllers.Faculty.validateFacultyPost()
-# To Faculty user's profile.
-GET        /FacultyProfile      controllers.Faculty.profile()   
-GET        /Ratings/            controllers.Application.ratings()
 
-#FacultyPage
+GET        /Login/             controllers.Application.login()
+GET        /Student/           controllers.Application.student()
+GET        /ValidateStudent    controllers.Student.validateStudent(username, password)
+GET        /ValidateStudentPost    controllers.Student.validateStudentPost()
+GET        /StudentProfile     controllers.Student.profile()
+GET        /Faculty/           controllers.Application.faculty()
+GET        /ValidateFaculty    controllers.Faculty.validateFaculty(username, password)
+GET        /ValidateFacultyPost    controllers.Faculty.validateFacultyPost()
+GET        /FacultyProfile     controllers.Faculty.profile()
+GET        /Ratings/           controllers.Application.ratings()
+
+# Goes to rating page
+GET        /ratings/            controllers.Ratings.ratings()
+# "rate" action from Ratings controller 
+POST        /rate                controllers.Ratings.rate()
+
+
