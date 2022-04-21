@@ -9,8 +9,18 @@
     <h2>Login Page</h2>
 
     <!-- These are the logins for Faculty-->
-    <form method="get" action="/ValidateFaculty">
-		<h3>GET Faculty Login (not secure)</h3>
+    <form method="get" action="/validateFaculty">
+		<h3>Faculty Login</h3>
+		<br>
+		Username: <input type="text" name="username"></input>
+		<br>
+		Password: <input type="password" name="password"></input>
+		<br>
+		<input type="submit"></input>
+	</form>
+	<br>
+    <form method="get" action="/createFacultyUser">
+		<h3>Faculty Create User</h3>
 		<br>
 		Username: <input type="text" name="username"></input>
 		<br>
@@ -19,13 +29,4 @@
 		<input type="submit"></input>
 	</form>
 
-    <form method="get" action="/ValidateFacultyPost">
-		<h3>GET Faculty Login Post (not secure)</h3>
-		<br>
-		Username: <input type="text" name="username"></input>
-		<br>
-		Password: <input type="password" name="password"></input>
-		<br>
-		<input type="submit"></input>
-	</form>
 }

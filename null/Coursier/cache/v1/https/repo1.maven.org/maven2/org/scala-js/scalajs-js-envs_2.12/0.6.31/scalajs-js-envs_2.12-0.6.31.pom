@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.scala-js</groupId>
+    <artifactId>scalajs-js-envs_2.12</artifactId>
+    <packaging>jar</packaging>
+    <description>Scala.js JS Envs</description>
+    <url>https://www.scala-js.org/</url>
+    <version>0.6.31</version>
+    <licenses>
+        <license>
+            <name>Apache-2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <name>Scala.js JS Envs</name>
+    <inceptionYear>2013</inceptionYear>
+    <organization>
+        <name>org.scala-js</name>
+        <url>https://www.scala-js.org/</url>
+    </organization>
+    <scm>
+        <url>https://github.com/scala-js/scala-js</url>
+        <connection>scm:git:git@github.com:scala-js/scala-js.git</connection>
+        <developerConnection>scm:git:git@github.com:scala-js/scala-js.git</developerConnection>
+    </scm>
+    <developers>
+        <developer>
+            <id>sjrd</id>
+            <name>Sébastien Doeraene</name>
+            <url>https://github.com/sjrd/</url>
+        </developer>
+        <developer>
+            <id>gzm0</id>
+            <name>Tobias Schlatter</name>
+            <url>https://github.com/gzm0/</url>
+        </developer>
+        <developer>
+            <id>nicolasstucki</id>
+            <name>Nicolas Stucki</name>
+            <url>https://github.com/nicolasstucki/</url>
+        </developer>
+    </developers>
+    <properties>
+        <info.apiURL>http://www.scala-js.org/api/scalajs-js-envs/0.6.31/</info.apiURL>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>2.12.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scala-js</groupId>
+            <artifactId>scalajs-tools_2.12</artifactId>
+            <version>0.6.31</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mozilla</groupId>
+            <artifactId>rhino</artifactId>
+            <version>1.7.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>envjs</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-websocket</artifactId>
+            <version>8.1.16.v20140903</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>8.1.16.v20140903</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.codeborne</groupId>
+  <artifactId>phantomjsdriver</artifactId>
+  <version>1.4.4</version>
+  <name>PhantomJSDriver</name>
+  <description>
+                                PhantomJSDriver is a Java binding for the PhantomJS WebDriver, GhostDriver.
+                                The binding is developed within the GhostDriver project, and distributed through public Maven repository
+                                and Selenium official .zip package.
+                                </description>
+  <url>https://github.com/codeborne/ghostdriver</url>
+  <inceptionYear>2012</inceptionYear>
+  <licenses>
+    <license>
+      <name>The BSD 2-Clause License</name>
+      <url>http://opensource.org/licenses/BSD-2-Clause</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>detro</id>
+      <name>Ivan De Marino</name>
+      <email>detronizator@gmail.com</email>
+      <url>http://ivandemarino.me</url>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>GMT</timezone>
+    </developer>
+    <developer>
+      <id>asolntsev</id>
+      <name>Andrei Solntsev</name>
+      <email>andrei.solntsev@gmail.com</email>
+      <url>asolntsev.github.io</url>
+      <roles>
+        <role>Maintainer</role>
+      </roles>
+      <timezone>GMT+3</timezone>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:git@github.com:codeborne/ghostdriver.git</connection>
+    <developerConnection>scm:git:git@github.com:codeborne/ghostdriver.git</developerConnection>
+    <url>https://github.com/codeborne/ghostdriver</url>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-api</artifactId>
+      <version>3.8.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-remote-driver</artifactId>
+      <version>3.8.1</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+</project>

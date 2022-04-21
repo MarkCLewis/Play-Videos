@@ -45,9 +45,23 @@ class TaskList5 @Inject() (protected val dbConfigProvider: DatabaseConfigProvide
     request.session.get("userid").map(userid => f(userid.toInt)).getOrElse(Future.successful(Ok(Json.toJson(Seq.empty[String]))))
   }
 
-  def validate = Action.async { implicit request =>
+  // def validate = Action.async { implicit request =>
+  //   withJsonBody[UserData] { ud =>
+  //     model.validateUser(ud.username, ud.password).map { ouserId =>
+  //       ouserId match {
+  //         case Some(userid) =>
+  //           Ok(Json.toJson(true))
+  //             .withSession("username" -> ud.username, "userid" -> userid.toString, "csrfToken" -> play.filters.csrf.CSRF.getToken.map(_.value).getOrElse(""))
+  //         case None =>
+  //           Ok(Json.toJson(false))
+  //       }
+  //     }
+  //   }
+  // }
+
+  def validateStudent = Action.async { implicit request =>
     withJsonBody[UserData] { ud =>
-      model.validateUser(ud.username, ud.password).map { ouserId =>
+      model.validateStudent(ud.username, ud.password).map { ouserId =>
         ouserId match {
           case Some(userid) =>
             Ok(Json.toJson(true))
@@ -59,8 +73,46 @@ class TaskList5 @Inject() (protected val dbConfigProvider: DatabaseConfigProvide
     }
   }
 
-  def createUser = Action.async { implicit request =>
-    withJsonBody[UserData] { ud => model.createUser(ud.username, ud.password).map { ouserId =>   
+  def validateFaculty = Action.async { implicit request =>
+    withJsonBody[UserData] { ud =>
+      model.validateFaculty(ud.username, ud.password).map { ouserId =>
+        ouserId match {
+          case Some(userid) =>
+            Ok(Json.toJson(true))
+              .withSession("username" -> ud.username, "userid" -> userid.toString, "csrfToken" -> play.filters.csrf.CSRF.getToken.map(_.value).getOrElse(""))
+          case None =>
+            Ok(Json.toJson(false))
+        }
+      }
+    }
+  }
+
+  // def createUser = Action.async { implicit request =>
+  //   withJsonBody[UserData] { ud => model.createUser(ud.username, ud.password).map { ouserId =>   
+  //     ouserId match {
+  //       case Some(userid) =>
+  //         Ok(Json.toJson(true))
+  //           .withSession("username" -> ud.username, "userid" -> userid.toString, "csrfToken" -> play.filters.csrf.CSRF.getToken.map(_.value).getOrElse(""))
+  //       case None =>
+  //         Ok(Json.toJson(false))
+  //     }
+  //   } }
+  // }
+
+  def createStudentUser = Action.async { implicit request =>
+    withJsonBody[UserData] { ud => model.createStudentUser(ud.username, ud.password).map { ouserId =>   
+      ouserId match {
+        case Some(userid) =>
+          Ok(Json.toJson(true))
+            .withSession("username" -> ud.username, "userid" -> userid.toString, "csrfToken" -> play.filters.csrf.CSRF.getToken.map(_.value).getOrElse(""))
+        case None =>
+          Ok(Json.toJson(false))
+      }
+    } }
+  }
+
+  def createFacultyUser = Action.async { implicit request =>
+    withJsonBody[UserData] { ud => model.createFacultyUser(ud.username, ud.password).map { ouserId =>   
       ouserId match {
         case Some(userid) =>
           Ok(Json.toJson(true))
