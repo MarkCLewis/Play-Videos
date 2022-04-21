@@ -40,8 +40,6 @@ class Application @Inject()(cc: ControllerComponents) extends AbstractController
   def ratings() = Action {
       Ok("Ratings page here.")
     }  
-
-
 }
 
 
