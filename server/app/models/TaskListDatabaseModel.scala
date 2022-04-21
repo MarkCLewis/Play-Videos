@@ -7,14 +7,56 @@ import scala.concurrent.Future
 import org.mindrot.jbcrypt.BCrypt
 
 class TaskListDatabaseModel(db: Database)(implicit ec: ExecutionContext) {
-  def validateUser(username: String, password: String): Future[Option[Int]] = {
+  // def validateUser(username: String, password: String): Future[Option[Int]] = {
+  //   val matches = db.run(Users.filter(userRow => userRow.username === username).result)
+  //   matches.map(userRows => userRows.headOption.flatMap {
+  //     userRow => if (BCrypt.checkpw(password, userRow.password)) Some(userRow.id) else None
+  //   })
+  // }
+
+  def validateStudent(username: String, password: String): Future[Option[Int]] = {
+    val matches = db.run(Users.filter(userRow => userRow.username === username).result)
+    matches.map(userRows => userRows.headOption.flatMap {
+      userRow => if (BCrypt.checkpw(password, userRow.password)) Some(userRow.id) else None
+    })
+  }
+
+  def validateFaculty(username: String, password: String): Future[Option[Int]] = {
     val matches = db.run(Users.filter(userRow => userRow.username === username).result)
     matches.map(userRows => userRows.headOption.flatMap {
       userRow => if (BCrypt.checkpw(password, userRow.password)) Some(userRow.id) else None
     })
   }
   
-  def createUser(username: String, password: String): Future[Option[Int]] = {
+  // def createUser(username: String, password: String): Future[Option[Int]] = {
+  //   val matches = db.run(Users.filter(userRow => userRow.username === username).result)
+  //   matches.flatMap { userRows =>
+  //     if (userRows.isEmpty) {
+  //       db.run(Users += UsersRow(-1, username, BCrypt.hashpw(password, BCrypt.gensalt())))
+  //         .flatMap { addCount => 
+  //           if (addCount > 0) db.run(Users.filter(userRow => userRow.username === username).result)
+  //             .map(_.headOption.map(_.id))
+  //           else Future.successful(None)
+  //         }
+  //     } else Future.successful(None)
+  //   }
+  // }
+
+  def createStudentUser(username: String, password: String): Future[Option[Int]] = {
+    val matches = db.run(Users.filter(userRow => userRow.username === username).result)
+    matches.flatMap { userRows =>
+      if (userRows.isEmpty) {
+        db.run(Users += UsersRow(-1, username, BCrypt.hashpw(password, BCrypt.gensalt())))
+          .flatMap { addCount => 
+            if (addCount > 0) db.run(Users.filter(userRow => userRow.username === username).result)
+              .map(_.headOption.map(_.id))
+            else Future.successful(None)
+          }
+      } else Future.successful(None)
+    }
+  }
+
+  def createFacultyUser(username: String, password: String): Future[Option[Int]] = {
     val matches = db.run(Users.filter(userRow => userRow.username === username).result)
     matches.flatMap { userRows =>
       if (userRows.isEmpty) {

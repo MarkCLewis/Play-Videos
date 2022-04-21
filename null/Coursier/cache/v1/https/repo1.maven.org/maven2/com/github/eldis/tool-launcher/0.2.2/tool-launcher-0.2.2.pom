@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.github.eldis</groupId>
+    <artifactId>tool-launcher</artifactId>
+    <packaging>jar</packaging>
+    <description>Java application/ToolProvider launcher with @argfile support</description>
+    <url>https://github.com/eldis/java-tool-launcher</url>
+    <version>0.2.2</version>
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>http://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <name>tool-launcher</name>
+    <inceptionYear>2019</inceptionYear>
+    <organization>
+        <name>com.github.eldis</name>
+        <url>http://eldis.ru</url>
+    </organization>
+    <scm>
+        <url>https://github.com/eldis/java-tool-launcher</url>
+        <connection>scm:git@github.com:eldis/java-tool-launcher.git</connection>
+    </scm>
+    <developers>
+        <developer>
+            <id>nigredo-tori</id>
+            <name>Dmitry Polienko</name>
+            <url>https://github.com/nigredo-tori</url>
+            <email>dmitry@eldis.ru</email>
+        </developer>
+    </developers>
+    <repositories>
+        <repository>
+            <id>mymavenproxyreleases</id>
+            <name>my-maven-proxy-releases</name>
+            <url>http://nexus.eldissoft.lan/nexus/content/groups/public/</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+</project>

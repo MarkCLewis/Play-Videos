@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:e="http://ant.apache.org/ivy/extra">
+	<info organisation="org.portable-scala" module="sbt-scalajs-crossproject" revision="0.6.1" status="release" publication="20190627113047" e:sbtVersion="1.0" e:scalaVersion="2.12">
+		<license name="BSD-like" url="http://www.scala-lang.org/downloads/license.html"/>
+		<description>
+		sbt-scalajs-crossproject
+		</description>
+	</info>
+	<configurations>
+		<conf name="compile" visibility="public" description=""/>
+		<conf name="runtime" visibility="public" description="" extends="compile"/>
+		<conf name="test" visibility="public" description="" extends="runtime"/>
+		<conf name="provided" visibility="public" description=""/>
+		<conf name="optional" visibility="public" description=""/>
+		<conf name="compile-internal" visibility="private" description="" extends="compile,optional,provided"/>
+		<conf name="runtime-internal" visibility="private" description="" extends="runtime,optional"/>
+		<conf name="test-internal" visibility="private" description="" extends="test,optional,provided"/>
+		<conf name="plugin" visibility="private" description=""/>
+		<conf name="pom" visibility="public" description=""/>
+		<conf name="scala-tool" visibility="private" description=""/>
+	</configurations>
+	<publications>
+		<artifact name="sbt-scalajs-crossproject" type="jar" ext="jar" conf="compile"/>
+		<artifact name="sbt-scalajs-crossproject" type="src" ext="jar" conf="compile" e:classifier="sources"/>
+		<artifact name="sbt-scalajs-crossproject" type="doc" ext="jar" conf="compile" e:classifier="javadoc"/>
+	</publications>
+	<dependencies>
+		<dependency org="org.scala-lang" name="scala-compiler" rev="2.12.6" conf="scala-tool->default,optional(default)"/>
+		<dependency org="org.scala-lang" name="scala-library" rev="2.12.6" conf="scala-tool->default,optional(default);provided->default(compile)"/>
+		<dependency org="org.scala-sbt" name="sbt" rev="1.2.1" conf="provided->default(compile)"/>
+		<dependency org="org.portable-scala" name="sbt-crossproject" rev="0.6.1" conf="compile->default(compile)" e:sbtVersion="1.0" e:scalaVersion="2.12"/>
+		<dependency org="org.portable-scala" name="sbt-platform-deps" rev="1.0.0" conf="compile->default(compile)" e:sbtVersion="1.0" e:scalaVersion="2.12"/>
+		<dependency org="org.scala-js" name="sbt-scalajs" rev="0.6.23" conf="compile->default(compile)" e:sbtVersion="1.0" e:scalaVersion="2.12"/>
+		<override org="org.scala-sbt" module="scripted-plugin_2.12" matcher="exact" rev="1.2.1"/>
+	</dependencies>
+</ivy-module>

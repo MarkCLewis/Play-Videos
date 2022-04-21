@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.querki</groupId>
+    <artifactId>querki-jsext_sjs0.6_2.12</artifactId>
+    <packaging>jar</packaging>
+    <description>jsext Library for Scala.js</description>
+    <url>http://www.querki.net/</url>
+    <version>0.8</version>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <name>jsext Library for Scala.js</name>
+    <organization>
+        <name>org.querki</name>
+        <url>http://www.querki.net/</url>
+    </organization>
+    <scm>
+        <url>https://github.com/jducoeur/jsext</url>
+        <connection>scm:git:git@github.com/jducoeur/jsext.git</connection>
+        <developerConnection>scm:git:git@github.com/jducoeur/jsext.git</developerConnection>
+    </scm>
+    <developers>
+        <developer>
+            <id>jducoeur</id>
+            <name>Mark Waks</name>
+            <url>https://github.com/jducoeur/</url>
+        </developer>
+    </developers>
+    <contributors>
+        <contributor>
+            <name>Jasper Moeys</name>
+            <url>https://github.com/Jasper-M/</url>
+        </contributor>
+        <contributor>
+            <name>Stefan Larsson</name>
+            <url>https://github.com/lastsys/</url>
+        </contributor>
+    </contributors>
+    <dependencies>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>2.12.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scala-js</groupId>
+            <artifactId>scalajs-library_2.12</artifactId>
+            <version>0.6.13</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scala-js</groupId>
+            <artifactId>scalajs-test-interface_2.12</artifactId>
+            <version>0.6.13</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

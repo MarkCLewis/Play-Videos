@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0" xmlns:e="http://ant.apache.org/ivy/extra">
+	<info organisation="org.scala-js" module="sbt-scalajs" revision="0.6.31" status="release" publication="20191121123519" e:info.apiURL="http://www.scala-js.org/api/sbt-scalajs/0.6.31/" e:sbtVersion="1.0" e:scalaVersion="2.12">
+		<license name="Apache-2.0" url="https://www.apache.org/licenses/LICENSE-2.0"/>
+		<description homepage="https://www.scala-js.org/">
+		Scala.js sbt plugin
+		</description>
+	</info>
+	<configurations>
+		<conf name="compile" visibility="public" description=""/>
+		<conf name="runtime" visibility="public" description="" extends="compile"/>
+		<conf name="test" visibility="public" description="" extends="runtime"/>
+		<conf name="provided" visibility="public" description=""/>
+		<conf name="optional" visibility="public" description=""/>
+		
+		
+		
+		
+		<conf name="sources" visibility="public" description=""/>
+		<conf name="docs" visibility="public" description=""/>
+		<conf name="pom" visibility="public" description=""/>
+		
+	</configurations>
+	<publications>
+		<artifact name="sbt-scalajs" type="jar" ext="jar" conf="compile"/>
+		<artifact name="sbt-scalajs" type="src" ext="jar" conf="sources" e:classifier="sources"/>
+		<artifact name="sbt-scalajs" type="doc" ext="jar" conf="docs" e:classifier="javadoc"/>
+	</publications>
+	<dependencies>
+		
+		<dependency org="org.scala-lang" name="scala-library" rev="2.12.10" conf="provided->default(compile)"/>
+		<dependency org="org.scala-sbt" name="sbt" rev="1.2.1" conf="provided->default(compile)"/>
+		<dependency org="org.scala-js" name="scalajs-tools_2.12" rev="0.6.31" conf="compile->default(compile)" e:info.apiURL="http://www.scala-js.org/api/scalajs-tools/0.6.31/"/>
+		<dependency org="org.scala-js" name="scalajs-js-envs_2.12" rev="0.6.31" conf="compile->default(compile)" e:info.apiURL="http://www.scala-js.org/api/scalajs-js-envs/0.6.31/"/>
+		<dependency org="org.scala-js" name="scalajs-sbt-test-adapter_2.12" rev="0.6.31" conf="compile->default(compile)" e:info.apiURL="http://www.scala-js.org/api/scalajs-sbt-test-adapter/0.6.31/"/>
+		<dependency org="org.portable-scala" name="sbt-platform-deps" rev="1.0.0" conf="compile->default(compile)" e:sbtVersion="1.0" e:scalaVersion="2.12"/>
+	</dependencies>
+</ivy-module>
