@@ -40,6 +40,14 @@ class Student @Inject()(protected val dbConfigProvider: DatabaseConfigProvider, 
 
   }
 
+  def getAllCourses() = Action.async { ??? }
+
+  def getMyCourses() = Action.async { ??? }
+
+  def addCourse() = Action.async { ??? }
+
+  def getStudentName () = Action.async { ??? }
+
 // Need to have a page of both valid and invalid outcomes. STILL IN PROGRESS with the outcomes.
 // It will only lead to the profile funtion.
   // def validateStudentPost() = Action { request =>

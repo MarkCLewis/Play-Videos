@@ -24,7 +24,7 @@ class Faculty @Inject()(protected val dbConfigProvider: DatabaseConfigProvider, 
     extends AbstractController(cc) with HasDatabaseConfigProvider[JdbcProfile] {
 
   private val model = new TaskListDatabaseModel(db)
-  
+
   def loginFaculty = Action { implicit request =>
     
       Ok(views.html.facultyLogin1())
@@ -39,6 +39,8 @@ class Faculty @Inject()(protected val dbConfigProvider: DatabaseConfigProvider, 
       Ok(views.html.facultyProfile())
 
   }
+
+  def getFacultyName() = Action.async { ??? }
 
 // Need to have a page of both valid and invalid outcomes. STILL IN PROGRESS with the outcomes.
 // It will only lead to the profile funtion.

@@ -1,15 +1,3 @@
--- CREATE TABLE users (
--- 	id SERIAL PRIMARY KEY, 
--- 	username varchar(20) NOT NULL, 
--- 	password varchar(200) NOT NULL
--- );
-
--- CREATE TABLE items (
--- 	item_id SERIAL PRIMARY KEY,
--- 	user_id int4 NOT NULL REFERENCES users(id) ON DELETE CASCADE,
--- 	text varchar(2000) NOT NULL
--- );
-
 create table Faculty (
 faculty_id serial primary key, 
 courses int[], 
@@ -42,7 +30,7 @@ primary key (student_id),
 foreign key (student_id) references Student
 );
 
---Ratings table currently won't work in postgressql; throwing error that the number of  referencing and referenced columns for foreign key disagree
+--Ratings table currently won't work in postgresql; throwing error that the number of  referencing and referenced columns for foreign key disagree
 -- create table Ratings (
 -- course_id int not null, 
 -- ratings int[], 
