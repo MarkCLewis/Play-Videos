@@ -1,3 +1,3 @@
-CREATE USER mlewis WITH PASSWORD 'password';
+CREATE USER eboettch WITH PASSWORD 'password';
 
-CREATE DATABASE tasklist WITH OWNER=mlewis;
+CREATE DATABASE cshub WITH OWNER=eboettch;

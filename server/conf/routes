@@ -50,13 +50,10 @@ GET   /load4            controllers.TaskList4.load
 
 #Routes for version 5
 GET   /load5            controllers.TaskList5.load
-POST	/validate51						controllers.TaskList5.validateStudent
-POST	/validate52						controllers.TaskList5.validateFaculty
-POST	/create51						controllers.TaskList5.createStudentUser
-POST	/create52						controllers.TaskList5.createFacultyUser
-GET 	/taskList5						controllers.TaskList5.taskList
-POST	/addTask5						controllers.TaskList5.addTask
-POST	/deleteTask5					controllers.TaskList5.delete
+POST	/validateStudent						controllers.TaskList5.validateStudent
+POST	/validateFaculty						controllers.TaskList5.validateFaculty
+POST	/createStudentUser						controllers.TaskList5.createStudentUser
+POST	/createFacultyUser						controllers.TaskList5.createFacultyUser
 GET  /logout5						controllers.TaskList5.logout
 
 #Routes for version 6

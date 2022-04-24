@@ -123,28 +123,28 @@ class TaskList5 @Inject() (protected val dbConfigProvider: DatabaseConfigProvide
     } }
   }
 
-  def taskList = Action.async { implicit request =>
-    withSessionUsername { username =>
-      println("!!! Getting tasks")
-      model.getTasks(username).map(tasks => Ok(Json.toJson(tasks)))
-    }
-  }
+  // def taskList = Action.async { implicit request =>
+  //   withSessionUsername { username =>
+  //     println("!!! Getting tasks")
+  //     model.getTasks(username).map(tasks => Ok(Json.toJson(tasks)))
+  //   }
+  // }
 
-  def addTask = Action.async { implicit request =>
-    withSessionUserid { userid =>
-      withJsonBody[String] { task =>
-        model.addTask(userid, task).map(count => Ok(Json.toJson(count > 0)))
-      }
-    }
-  }
+  // def addTask = Action.async { implicit request =>
+  //   withSessionUserid { userid =>
+  //     withJsonBody[String] { task =>
+  //       model.addTask(userid, task).map(count => Ok(Json.toJson(count > 0)))
+  //     }
+  //   }
+  // }
 
-  def delete = Action.async { implicit request =>
-    withSessionUsername { username =>
-      withJsonBody[Int] { itemId =>
-        model.removeTask(itemId).map(removed => Ok(Json.toJson(removed)))
-      }
-    }
-  }
+  // def delete = Action.async { implicit request =>
+  //   withSessionUsername { username =>
+  //     withJsonBody[Int] { itemId =>
+  //       model.removeTask(itemId).map(removed => Ok(Json.toJson(removed)))
+  //     }
+  //   }
+  // }
 
   def logout = Action { implicit request =>
     Ok(Json.toJson(true)).withSession(request.session - "username")

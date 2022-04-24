@@ -2,15 +2,29 @@ package controllers
 
 import javax.inject._
 
+import play.api.mvc._
+import play.api.i18n._
+import models.TaskListInMemoryModel
+import play.api.libs.json._
+import models._
 
+import play.api.db.slick.DatabaseConfigProvider
+import scala.concurrent.ExecutionContext
+import play.api.db.slick.HasDatabaseConfigProvider
+import slick.jdbc.JdbcProfile
+import slick.jdbc.PostgresProfile.api._
+import scala.concurrent.Future
 
 import shared.SharedMessages
 import play.api.mvc._
 import play.api.i18n._
 
 @Singleton
-class Faculty @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
+class Faculty @Inject()(protected val dbConfigProvider: DatabaseConfigProvider, cc: ControllerComponents)(implicit ec: ExecutionContext) 
+    extends AbstractController(cc) with HasDatabaseConfigProvider[JdbcProfile] {
 
+  private val model = new TaskListDatabaseModel(db)
+  
   def loginFaculty = Action { implicit request =>
     
       Ok(views.html.facultyLogin1())
@@ -38,6 +52,34 @@ class Faculty @Inject()(cc: ControllerComponents) extends AbstractController(cc)
            }.getOrElse((Redirect(routes.Faculty.profile()))) // This witl return the user back 
            // to the login page. Ok("Oops"))
       }
+
+      //functions below are copied from Lewis from TaskList5.scala
+  //     def validateFaculty = Action.async { implicit request =>
+  //   withJsonBody[UserData] { ud =>
+  //     model.validateFaculty(ud.username, ud.password).map { ouserId =>
+  //       ouserId match {
+  //         case Some(userid) =>
+  //           Ok(Json.toJson(true))
+  //             .withSession("username" -> ud.username, "userid" -> userid.toString, "csrfToken" -> play.filters.csrf.CSRF.getToken.map(_.value).getOrElse(""))
+  //         case None =>
+  //           Ok(Json.toJson(false))
+  //       }
+  //     }
+  //   }
+  // }
+
+  // def createFacultyUser = Action.async { implicit request =>
+  //   withJsonBody[UserData] { ud => model.createFacultyUser(ud.username, ud.password).map { ouserId =>   
+  //     ouserId match {
+  //       case Some(userid) =>
+  //         Ok(Json.toJson(true))
+  //           .withSession("username" -> ud.username, "userid" -> userid.toString, "csrfToken" -> play.filters.csrf.CSRF.getToken.map(_.value).getOrElse(""))
+  //       case None =>
+  //         Ok(Json.toJson(false))
+  //     }
+  //   } }
+  // }
+      
 //def validateFacultyPost() = Action { request =>
 //      val postvals = request.body.asFormUrlEncoded
 //      postvals.map { args => 
