@@ -3,6 +3,7 @@
 # ~~~~
 
 # Home page
+
 GET     /                 				controllers.Application.index
 GET		/productArgs					controllers.Application.product(prodType, prodNum: Int)
 GET		/product/:prodType/:prodNum		controllers.Application.product(prodType, prodNum: Int)

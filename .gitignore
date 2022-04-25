@@ -1,5 +1,6 @@
 .metals
 .bloop
+.vscode
 
 logs
 project/project
