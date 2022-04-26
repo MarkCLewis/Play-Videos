@@ -27,7 +27,7 @@ class Faculty @Inject()(protected val dbConfigProvider: DatabaseConfigProvider, 
 
   def loginFaculty = Action { implicit request =>
     
-      Ok(views.html.facultyLogin1())
+      Ok(views.html.facultyLogin())
 
   }
 
@@ -35,12 +35,11 @@ class Faculty @Inject()(protected val dbConfigProvider: DatabaseConfigProvider, 
     Ok(s"$username logged in with $password.")
   }
 
-  def profile() = Action {  implicit request =>
+  def facultyProfile() = Action {  implicit request =>
       Ok(views.html.facultyProfile())
-
   }
 
-  def getFacultyName() = Action.async { ??? }
+  //def getFacultyName() = Action.async { ??? }
 
 // Need to have a page of both valid and invalid outcomes. STILL IN PROGRESS with the outcomes.
 // It will only lead to the profile funtion.
@@ -50,8 +49,8 @@ class Faculty @Inject()(protected val dbConfigProvider: DatabaseConfigProvider, 
            val username = args("username").head
            val password = args("password").head
            //Ok(s"$username logged in with $password.")
-           Redirect(routes.Faculty.profile())
-           }.getOrElse((Redirect(routes.Faculty.profile()))) // This witl return the user back 
+           Redirect(routes.Faculty.facultyProfile())
+           }.getOrElse((Redirect(routes.Faculty.facultyProfile()))) // This will return the user back 
            // to the login page. Ok("Oops"))
       }
 
@@ -95,7 +94,7 @@ class Faculty @Inject()(protected val dbConfigProvider: DatabaseConfigProvider, 
   def index = Action { implicit request =>
       val facultyMember = "John"
       val password = 12345
-      Ok(views.html.facultyLogin1())
+      Ok(views.html.facultyLogin())
   }
 
 }

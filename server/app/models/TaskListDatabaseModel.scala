@@ -43,28 +43,28 @@ class TaskListDatabaseModel(db: Database)(implicit ec: ExecutionContext) {
   //   }
   // }
 
-  def createStudentUser(username: String, password: String): Future[Option[Int]] = {
-    val matches = db.run(Student.filter(userRow => userRow.username === username).result)
-    matches.flatMap { userRows =>
-      if (userRows.isEmpty) {
-        db.run(Users += UsersRow(-1, username, BCrypt.hashpw(password, BCrypt.gensalt())))
+  def createStudentUser(name: String, username: String, password: String): Future[Option[Int]] = {
+    val matches = db.run(Student.filter(studentRow => studentRow.username === username).result)
+    matches.flatMap { studentRows =>
+      if (studentRows.isEmpty) {
+        db.run(Student += StudentRow(-1, name, username, BCrypt.hashpw(password, BCrypt.gensalt())))
           .flatMap { addCount => 
-            if (addCount > 0) db.run(Users.filter(userRow => userRow.username === username).result)
-              .map(_.headOption.map(_.id))
+            if (addCount > 0) db.run(Student.filter(studentRow => studentRow.username === username).result)
+              .map(_.headOption.map(_.student_id))
             else Future.successful(None)
           }
       } else Future.successful(None)
     }
   }
 
-  def createFacultyUser(username: String, password: String): Future[Option[Int]] = {
-    val matches = db.run(Users.filter(userRow => userRow.username === username).result)
-    matches.flatMap { userRows =>
-      if (userRows.isEmpty) {
-        db.run(Users += UsersRow(-1, username, BCrypt.hashpw(password, BCrypt.gensalt())))
+  def createFacultyUser(name: String, username: String, password: String): Future[Option[Int]] = {
+    val matches = db.run(Faculty.filter(facultyRow => facultyRow.username === username).result)
+    matches.flatMap { facultyRows =>
+      if (facultyRows.isEmpty) {
+        db.run(Faculty += FacultyRow(-1, name, username, BCrypt.hashpw(password, BCrypt.gensalt())))
           .flatMap { addCount => 
-            if (addCount > 0) db.run(Users.filter(userRow => userRow.username === username).result)
-              .map(_.headOption.map(_.id))
+            if (addCount > 0) db.run(Faculty.filter(facultyRow => facultyRow.username === username).result)
+              .map(_.headOption.map(_.faculty_id))
             else Future.successful(None)
           }
       } else Future.successful(None)

@@ -25,41 +25,63 @@ class Student @Inject()(protected val dbConfigProvider: DatabaseConfigProvider, 
   
   private val model = new TaskListDatabaseModel(db)
 
-  def loginStudent = Action { implicit request =>
-    
-      Ok(views.html.studentLogin())
+  implicit val studentDataReads = Json.reads[StudentData]
+  //implicit val taskItemWrites = Json.writes[TaskItem]
 
+  def load = Action { implicit request =>
+     Ok(views.html.studentLogin())
+   }
+
+  def withJsonBody[A](f: A => Future[Result])(implicit request: Request[AnyContent], reads: Reads[A]): Future[Result] = {
+    request.body.asJson.map { body =>
+      Json.fromJson[A](body) match {
+        case JsSuccess(a, path) => f(a)
+        case e @ JsError(_) => Future.successful(Redirect(routes.Student.load()))
+      }
+    }.getOrElse(Future.successful(Redirect(routes.Student.load())))
+  }
+
+  def withSessionUsername(f: String => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
+    request.session.get("username").map(f).getOrElse(Future.successful(Ok(Json.toJson(Seq.empty[String]))))
+  }
+
+  def withSessionUserid(f: Int => Future[Result])(implicit request: Request[AnyContent]): Future[Result] = {
+    request.session.get("userid").map(userid => f(userid.toInt)).getOrElse(Future.successful(Ok(Json.toJson(Seq.empty[String]))))
+  }
+
+
+  def loginStudent = Action { implicit request =>
+      Ok(views.html.studentLogin())
   }
 
   def validateStudent(username: String, password: String) = Action {
     Ok(s"$username logged in with $password.")
   }
 
-  def profile() = Action {  implicit request =>
+  def studentProfile = Action { implicit request =>
       Ok(views.html.studentProfile())
-
   }
 
-  def getAllCourses() = Action.async { ??? }
+  // def getAllCourses() = { ??? }
 
-  def getMyCourses() = Action.async { ??? }
+  // def getMyCourses() = { ??? }
 
-  def addCourse() = Action.async { ??? }
+  // def addCourse() = { ??? }
 
-  def getStudentName () = Action.async { ??? }
+  // def getStudentName () = { ??? }
 
 // Need to have a page of both valid and invalid outcomes. STILL IN PROGRESS with the outcomes.
 // It will only lead to the profile funtion.
-  // def validateStudentPost() = Action { request =>
-  //     val postVals = request.body.asFormUrlEncoded
-  //     postVals.map { args => 
-  //          val username = args("username").head
-  //          val password = args("password").head
-  //          //Ok(s"$username logged in with $password.")
-  //          Redirect(routes.Student.profile())
-  //          }.getOrElse(Redirect(routes.Student.profile())) // This witl return the user back 
-  //          // to the login page. Ok("Oops"))
-  //     }
+  def validateStudentPost() = Action { request =>
+      val postVals = request.body.asFormUrlEncoded
+      postVals.map { args => 
+           val username = args("username").head
+           val password = args("password").head
+           //Ok(s"$username logged in with $password.")
+           Redirect(routes.Student.studentProfile())
+           }.getOrElse(Redirect(routes.Student.studentProfile())) // This will return the user back 
+           // to the login page. Ok("Oops"))
+      }
 
   //functions below are copied from Lewis from TaskList5.scala
 // def validateStudent = Action.async { implicit request =>
@@ -76,17 +98,17 @@ class Student @Inject()(protected val dbConfigProvider: DatabaseConfigProvider, 
 //     }
 //   }
 
-// def createStudentUser = Action.async { implicit request =>
-//     withJsonBody[UserData] { ud => model.createStudentUser(ud.username, ud.password).map { ouserId =>   
-//       ouserId match {
-//         case Some(userid) =>
-//           Ok(Json.toJson(true))
-//             .withSession("username" -> ud.username, "userid" -> userid.toString, "csrfToken" -> play.filters.csrf.CSRF.getToken.map(_.value).getOrElse(""))
-//         case None =>
-//           Ok(Json.toJson(false))
-//       }
-//     } }
-//   }
+def createStudentUser = Action.async { implicit request =>
+    withJsonBody[StudentData] { ud => model.createStudentUser(ud.name, ud.username, ud.password).map { ouserId =>   
+      ouserId match {
+        case Some(userid) =>
+          Ok(Json.toJson(true))
+            .withSession("username" -> ud.username, "userid" -> userid.toString, "csrfToken" -> play.filters.csrf.CSRF.getToken.map(_.value).getOrElse(""))
+        case None =>
+          Ok(Json.toJson(false))
+      }
+    } }
+  }
 
 
   def index = Action { implicit request =>
