@@ -17,13 +17,16 @@ GET		/randomString/:length			controllers.Application.randomString(length: Int)
 GET        /assets/*file                 controllers.Assets.at(file)
 GET        /versionedAssets/*file        controllers.Assets.versioned(path="/public", file: Asset)
 
-#Pages
+# Pages
 
 GET        /LoadStudent        controllers.Student.load()
 GET        /Login/             controllers.Application.login()
 GET        /Student/           controllers.Application.student()
-GET        /ValidateStudent    controllers.Student.validateStudent(username, password)
-GET        /ValidateStudentPost    controllers.Student.validateStudentPost()
+POST       /createStudentUser  controllers.Student.createStudentUser()
+GET       /createStudentUser  controllers.Student.createStudentUser()
+GET        /studentLogin       controllers.Student.loginStudent()
+GET        /loginStudent        controllers.Student.loginStudent()
+GET       /validateStudent    controllers.Student.validateStudent()
 GET        /StudentProfile     controllers.Student.studentProfile()
 GET        /Faculty/           controllers.Application.faculty()
 GET        /ValidateFaculty    controllers.Faculty.validateFaculty(username, password)

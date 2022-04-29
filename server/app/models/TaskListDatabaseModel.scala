@@ -14,17 +14,20 @@ class TaskListDatabaseModel(db: Database)(implicit ec: ExecutionContext) {
   //   })
   // }
 
+   //val testStudent = StudentRow(-1, "John Doe", "jdoe", "password")
+   //val insertResullt:Future[Int] = db.run(Student += StudentRow(-1, "name", "username", "password"))
+
   def validateStudent(username: String, password: String): Future[Option[Int]] = {
     val matches = db.run(Student.filter(userRow => userRow.username === username).result)
     matches.map(userRows => userRows.headOption.flatMap {
-      userRow => if (BCrypt.checkpw(password, userRow.password)) Some(userRow.student_id) else None
+      userRow => if (BCrypt.checkpw(password, userRow.password)) Some(userRow.studentId) else None
     })
   }
 
   def validateFaculty(username: String, password: String): Future[Option[Int]] = {
     val matches = db.run(Faculty.filter(userRow => userRow.username === username).result)
     matches.map(userRows => userRows.headOption.flatMap {
-      userRow => if (BCrypt.checkpw(password, userRow.password)) Some(userRow.faculty_id) else None
+      userRow => if (BCrypt.checkpw(password, userRow.password)) Some(userRow.facultyId) else None
     })
   }
   
@@ -50,7 +53,7 @@ class TaskListDatabaseModel(db: Database)(implicit ec: ExecutionContext) {
         db.run(Student += StudentRow(-1, name, username, BCrypt.hashpw(password, BCrypt.gensalt())))
           .flatMap { addCount => 
             if (addCount > 0) db.run(Student.filter(studentRow => studentRow.username === username).result)
-              .map(_.headOption.map(_.student_id))
+              .map(_.headOption.map(_.studentId))
             else Future.successful(None)
           }
       } else Future.successful(None)
@@ -64,7 +67,7 @@ class TaskListDatabaseModel(db: Database)(implicit ec: ExecutionContext) {
         db.run(Faculty += FacultyRow(-1, name, username, BCrypt.hashpw(password, BCrypt.gensalt())))
           .flatMap { addCount => 
             if (addCount > 0) db.run(Faculty.filter(facultyRow => facultyRow.username === username).result)
-              .map(_.headOption.map(_.faculty_id))
+              .map(_.headOption.map(_.facultyId))
             else Future.successful(None)
           }
       } else Future.successful(None)
