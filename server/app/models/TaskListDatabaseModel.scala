@@ -18,9 +18,9 @@ class TaskListDatabaseModel(db: Database)(implicit ec: ExecutionContext) {
    //val insertResullt:Future[Int] = db.run(Student += StudentRow(-1, "name", "username", "password"))
 
   def validateStudent(username: String, password: String): Future[Option[Int]] = {
-    val matches = db.run(Student.filter(userRow => userRow.username === username).result)
-    matches.map(userRows => userRows.headOption.flatMap {
-      userRow => if (BCrypt.checkpw(password, userRow.password)) Some(userRow.studentId) else None
+    val matches = db.run(Student.filter(studentRow => studentRow.username === username).result)
+    matches.map(studentRows => studentRows.headOption.flatMap {
+      studentRow => if (BCrypt.checkpw(password, studentRow.password)) Some(studentRow.studentId) else None
     })
   }
 

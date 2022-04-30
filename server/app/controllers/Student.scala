@@ -64,20 +64,15 @@ class Student @Inject()(protected val dbConfigProvider: DatabaseConfigProvider, 
   //   Ok(s"$username logged in with $password.")
   // }
 
-    def validateStudent = Action.async { implicit request =>
-    withJsonBody[StudentData] { ud =>
-      model.validateStudent(ud.username, ud.password).map { ostudentId =>
-        ostudentId match {
-          case Some(studentId) =>
-            Ok(Json.toJson(true))
-              .withSession("name" -> ud.name, "username" -> ud.username, "studentId" -> studentId.toString, "csrfToken" -> play.filters.csrf.CSRF.getToken.map(_.value).getOrElse(""))
-              Redirect(routes.Student.studentProfile())
-          case None =>
-            Ok(Json.toJson(false))
-        }
-      }
+    def validateStudent = Action { implicit request =>
+    val validVals = request.body.asFormUrlEncoded
+     validVals.map { args => 
+      val validUsername = args("username").head
+      val validPassword = args("password").head
+      model.validateStudent(validUsername, validPassword)
+      Redirect(routes.Student.studentProfile())
+      }.getOrElse(Redirect(routes.Student.loginStudent()))
     }
-  }
 
   def studentProfile = Action { implicit request =>
       Ok(views.html.studentProfile())
