@@ -22,6 +22,7 @@ class Ratings @Inject()(cc: ControllerComponents) extends AbstractController(cc)
   }  
   
   //Adds rating to current professor/course
+  //Doesn't work with empty string
   def rate = Action { implicit request =>
     val user = "Dr. Professor"
     val postVals = request.body.asFormUrlEncoded

@@ -37,9 +37,6 @@ class Application @Inject()(cc: ControllerComponents) extends AbstractController
       Ok(views.html.facultyLogin1())
     }
 
-  def ratings() = Action {
-      Ok("Ratings page here.")
-    }  
 }
 
 
