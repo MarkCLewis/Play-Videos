@@ -70,6 +70,7 @@ GET        /assets/*file                 controllers.Assets.at(file)
 GET        /versionedAssets/*file        controllers.Assets.versioned(path="/public", file: Asset)
 
 #Pages
+
 GET        /Login/             controllers.Application.login()
 GET        /Student/           controllers.Application.student()
 GET        /ValidateStudent    controllers.Student.validateStudent(username, password)
@@ -80,5 +81,10 @@ GET        /ValidateFaculty    controllers.Faculty.validateFaculty(username, pas
 GET        /ValidateFacultyPost    controllers.Faculty.validateFacultyPost()
 GET        /FacultyProfile     controllers.Faculty.profile()
 GET        /Ratings/           controllers.Application.ratings()
+
+# Goes to rating page
+GET        /ratings/            controllers.Ratings.ratings()
+# "rate" action from Ratings controller 
+POST        /rate                controllers.Ratings.rate()
 
 
