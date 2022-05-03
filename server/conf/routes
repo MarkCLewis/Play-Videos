@@ -26,7 +26,7 @@ POST       /createStudentUser  controllers.Student.createStudentUser()
 GET       /createStudentUser  controllers.Student.createStudentUser()
 GET        /studentLogin       controllers.Student.loginStudent()
 GET        /loginStudent        controllers.Student.loginStudent()
-GET       /validateStudent    controllers.Student.validateStudent()
+
 POST       /validateStudent    controllers.Student.validateStudent()
 GET        /StudentProfile     controllers.Student.studentProfile()
 GET        /Faculty/           controllers.Application.faculty()

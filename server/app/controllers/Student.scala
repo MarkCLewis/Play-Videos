@@ -4,9 +4,9 @@ import javax.inject._
 
 import play.api.mvc._
 import play.api.i18n._
-import models.TaskListInMemoryModel
-import play.api.libs.json._
 import models._
+import play.api.libs.json._
+import models.Tables._
 import play.api.data.Forms._
 
 
@@ -20,12 +20,16 @@ import scala.concurrent.Future
 import shared.SharedMessages
 import play.api.mvc._
 import play.api.i18n._
+import scala.collection.mutable.ListBuffer
+import scala.collection.mutable
 
 @Singleton
 class Student @Inject()(protected val dbConfigProvider: DatabaseConfigProvider, cc: ControllerComponents)(implicit ec: ExecutionContext) 
     extends AbstractController(cc) with HasDatabaseConfigProvider[JdbcProfile] {
   
   private val model = new TaskListDatabaseModel(db)
+  private var sessionId:Int = 0
+  private var courselist:ListBuffer[(Int, String, String, Int)] = mutable.ListBuffer()
 
   implicit val studentDataReads = Json.reads[StudentData]
   //implicit val taskItemWrites = Json.writes[TaskItem]
@@ -60,70 +64,105 @@ class Student @Inject()(protected val dbConfigProvider: DatabaseConfigProvider, 
       Ok(views.html.studentLogin())
   }
 
-  // def validateStudent(username: String, password: String) = Action {
-  //   Ok(s"$username logged in with $password.")
-  // }
 
-    def validateStudent = Action { implicit request =>
+  def validateStudent = Action.async { implicit request =>
     val validVals = request.body.asFormUrlEncoded
+    var validUsername:String = ""
+      var validPassword:String = ""
      validVals.map { args => 
-      val validUsername = args("username").head
-      val validPassword = args("password").head
-      model.validateStudent(validUsername, validPassword)
-      Redirect(routes.Student.studentProfile())
+      validUsername = args("username").head
+      validPassword = args("password").head
       }.getOrElse(Redirect(routes.Student.loginStudent()))
+      model.validateStudent(validUsername, validPassword).map {  ostudentId =>
+        ostudentId match {
+          case Some(studentid) =>
+            sessionId = studentid
+            Redirect(routes.Student.studentProfile())
+          case None =>
+            Redirect(routes.Student.loginStudent())
+        }
+      }
     }
 
   def studentProfile = Action { implicit request =>
+      //println("before call")
+      //val test = getAllCourses()
+      //println(test)
+      //println(courselist)
+      //model.addCourse(4, 4) //model.addCourse works!!
+      //model.addRating(4, 4, 1)
       Ok(views.html.studentProfile())
   }
 
-  // def getAllCourses() = { ??? }
+  // def getAllCoursesList(): Future[ListBuffer[(Int, String, String, Int)]] =  {
+  //   courselist
+  // }
+  
+  //  def getAllCourses() = Action.async { implicit request =>
+  //    println("beginning")
+  //    model.getAllCourses().map { courseRows => 
+  //      println("before match")
+  //      courseRows match { 
+  //      case courseRow =>
+  //        println("before map")
+  //        courseRow.map( course => 
+  //         courselist += ((course.courseId, course.courseName, course.courseNumber, course.facultyId)) )
+  //         println("case 1")
+  //           Ok(views.html.studentProfile())
+  //      case _ =>
+  //        println("case 2")
+  //           Ok(views.html.studentProfile())
+  //      }
+  //   }
+  // }
 
-  // def getMyCourses() = { ??? }
 
-  // def addCourse() = { ??? }
+  // def getStudentCourses() = Action.async { implicit request =>
+      //model.getMyCourses(sessionId)
+  // }
 
-  // def getStudentName () = { ??? }
+  def addCourse = Action.async { implicit request =>
+    val addVals = request.body.asFormUrlEncoded
+    var addCourseId:Int = 0
+    addVals.map { args => 
+      addCourseId = args("courseId").head.toInt
+    }.getOrElse(Redirect(routes.Student.studentProfile()))
+    model.addCourse(sessionId, addCourseId).map { ocount => 
+      ocount match { 
+      case Some(count) => 
+        if (count > 0) Redirect(routes.Student.studentProfile()) else Redirect(routes.Student.studentProfile()) 
+      case None => 
+        Redirect(routes.Student.studentProfile())} 
+    }
+  }
 
-// Need to have a page of both valid and invalid outcomes. STILL IN PROGRESS with the outcomes.
-// It will only lead to the profile funtion.
-  // def validateStudentPost() = Action { request =>
-  //     val postVals = request.body.asFormUrlEncoded
-  //     postVals.map { args => 
-  //          val username = args("username").head
-  //          val password = args("password").head
-  //          //Ok(s"$username logged in with $password.")
-  //          Redirect(routes.Student.studentProfile())
-  //          }.getOrElse(Redirect(routes.Student.studentLogin())) // This will return the user back 
-  //          // to the login page. Ok("Oops"))
-  //     }
+  // def getStudentName = Action { implicit request => 
+  //}
 
-  //functions below are copied from Lewis from TaskList5.scala
-// def validateStudent = Action.async { implicit request =>
-//     withJsonBody[UserData] { ud =>
-//       model.validateStudent(ud.username, ud.password).map { ouserId =>
-//         ouserId match {
-//           case Some(userid) =>
-//             Ok(Json.toJson(true))
-//               .withSession("username" -> ud.username, "userid" -> userid.toString, "csrfToken" -> play.filters.csrf.CSRF.getToken.map(_.value).getOrElse(""))
-              
-//           case None =>
-//             Ok(Json.toJson(false))
-//         }
-//       }
-//     }
-//   }
+    // def addRating = Action.async = { implicit request => 
 
-def createStudentUser = Action { implicit request =>
+    // }
+
+
+def createStudentUser = Action.async { implicit request =>
     val createVals = request.body.asFormUrlEncoded
+    var createName:String = ""
+    var createUsername:String = ""
+    var createPassword:String = ""
      createVals.map { args => 
-      val createName = args("name").head
-      val createUsername = args("username").head
-      val createPassword = args("password").head
-      model.createStudentUser(createName, createUsername, createPassword)
-      Redirect(routes.Student.studentProfile())
+      createName = args("name").head
+      createUsername = args("username").head
+      createPassword = args("password").head
     }.getOrElse(Redirect(routes.Student.loginStudent()))
+    model.createStudentUser(createName, createUsername, createPassword).map {  ostudentId =>
+        ostudentId match {
+          case Some(studentid) =>
+            sessionId = studentid
+            Redirect(routes.Student.studentProfile())
+          case None =>
+            Redirect(routes.Student.loginStudent())
+        }
+      }
   }
 
 
