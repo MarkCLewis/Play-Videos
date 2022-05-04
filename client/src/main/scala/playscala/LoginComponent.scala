@@ -6,16 +6,16 @@ import slinky.core.facade.ReactElement
 import slinky.web.html._
 import org.scalajs.dom.document
 import org.scalajs.dom.html
-import models.UserData
+import models.StudentData
 import models.ReadsAndWrites._
 
 @react class LoginComponent extends Component {
   case class Props(doLogin: () => Unit)
-  case class State(loginName: String, loginPass: String, 
-    createName: String, createPass: String,
+  case class State(loginName:String, loginUsername: String, loginPass: String, 
+    createName: String, createUsername: String, createPass: String,
     loginMessage: String, createMessage:String)
 
-  def initialState: State = State("", "", "", "", "", "")
+  def initialState: State = State("", "", "", "", "", "", "", "")
 
   implicit val ec = scala.concurrent.ExecutionContext.global
 
@@ -52,7 +52,7 @@ import models.ReadsAndWrites._
   )
 
   def login(): Unit = {
-    FetchJson.fetchPost(validateRoute, csrfToken, UserData(state.loginName, state.loginPass), (bool: Boolean) => {
+    FetchJson.fetchPost(validateRoute, csrfToken, StudentData(state.loginName, state.loginUsername, state.loginPass), (bool: Boolean) => {
       if(bool) {
         props.doLogin()
       } else {
@@ -64,7 +64,7 @@ import models.ReadsAndWrites._
   }
 
   def createUser(): Unit = {
-    FetchJson.fetchPost(createRoute, csrfToken, UserData(state.createName, state.createPass), (bool: Boolean) => {
+    FetchJson.fetchPost(createRoute, csrfToken, StudentData(state.createName, state.createUsername, state.createPass), (bool: Boolean) => {
       if(bool) {
         props.doLogin()
       } else {

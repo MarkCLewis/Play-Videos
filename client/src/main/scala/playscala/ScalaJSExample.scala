@@ -14,15 +14,15 @@ object ScalaJSExample {
       dom.document.getElementById("scalajsShoutOut").textContent = SharedMessages.itWorks
     }
 
-    if (dom.document.getElementById("version6") != null) {
-      Version6.init()
-    }
+    // if (dom.document.getElementById("version6") != null) {
+    //   Version6.init()
+    // }
 
-    if (dom.document.getElementById("version7") != null) {
-      ReactDOM.render(
-        Version7MainComponent(),
-        dom.document.getElementById("react-root")
-      )
-    }
+    // if (dom.document.getElementById("version7") != null) {
+    //   ReactDOM.render(
+    //     Version7MainComponent(),
+    //     dom.document.getElementById("react-root")
+    //   )
+    // }
   }
 }
