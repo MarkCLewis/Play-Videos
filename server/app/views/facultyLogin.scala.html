@@ -6,11 +6,18 @@
 
 @main("Login") {
 
-    <h2> Faculty Login Page</h2>
+	<body style="background-color:#DC3545;"></body>
+
+
+	<style>
+        h3{text-align: center;}
+		h3{font-size: 40px;}
+    </style>
+
 
     <!-- These are the logins for Faculty-->
     <form method="post" action="/validateFaculty">
-		<h3>Faculty Login</h3>
+		<h3 style="color:aliceblue;">Falculty Login</h3>
 		<br>
 		Username: <input type="text" name="username"></input>
 		<br>
@@ -20,7 +27,7 @@
 	</form>
 	<br>
     <form method="post" action="/createFacultyUser">
-		<h3>Faculty Create User</h3>
+		<h3 style="color:aliceblue;">Faculty Create User</h3>
 		<br>
 		Faculty Name: <input type="text" name="name"></input>
 		<br>
