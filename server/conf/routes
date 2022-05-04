@@ -36,7 +36,7 @@ GET        /Faculty/           controllers.Application.faculty()
 
 POST        /validateFaculty    controllers.Faculty.validateFaculty()
 GET        /FacultyProfile     controllers.Faculty.facultyProfile()
-GET        /Ratings/           controllers.Application.ratings()
+GET        /Ratings/           controllers.Ratings.ratings()
 POST        /rate                controllers.Ratings.rate()
 GET        /Courses/          controllers.Courses.courseList()
 
