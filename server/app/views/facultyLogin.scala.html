@@ -6,10 +6,10 @@
 
 @main("Login") {
 
-    <h2>Login Page</h2>
+    <h2> Faculty Login Page</h2>
 
     <!-- These are the logins for Faculty-->
-    <form method="get" action="/validateFaculty">
+    <form method="post" action="/validateFaculty">
 		<h3>Faculty Login</h3>
 		<br>
 		Username: <input type="text" name="username"></input>
@@ -19,7 +19,7 @@
 		<input type="submit"></input>
 	</form>
 	<br>
-    <form method="get" action="/createFacultyUser">
+    <form method="post" action="/createFacultyUser">
 		<h3>Faculty Create User</h3>
 		<br>
 		Faculty Name: <input type="text" name="name"></input>

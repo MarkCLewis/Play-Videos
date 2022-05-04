@@ -18,83 +18,81 @@ import scala.concurrent.Future
 import shared.SharedMessages
 import play.api.mvc._
 import play.api.i18n._
+import scala.collection.mutable.ListBuffer
+import scala.collection.mutable
 
 @Singleton
 class Faculty @Inject()(protected val dbConfigProvider: DatabaseConfigProvider, cc: ControllerComponents)(implicit ec: ExecutionContext) 
     extends AbstractController(cc) with HasDatabaseConfigProvider[JdbcProfile] {
 
   private val model = new TaskListDatabaseModel(db)
+  private var sessionId:Int = 0
+  private var facultyCourselist:ListBuffer[(Int, String, String, Int)] = mutable.ListBuffer()
 
+  //display student login page
   def loginFaculty = Action { implicit request =>
-    
       Ok(views.html.facultyLogin())
-
   }
 
-  def validateFaculty(username: String, password: String) = Action {
-    Ok(s"$username logged in with $password.")
-  }
-
+  //display faculty profile 
   def facultyProfile() = Action {  implicit request =>
       Ok(views.html.facultyProfile())
   }
 
-  //def getFacultyName() = Action.async { ??? }
-
-// Need to have a page of both valid and invalid outcomes. STILL IN PROGRESS with the outcomes.
-// It will only lead to the profile funtion.
-  def validateFacultyPost() = Action { request =>
-      val postVals = request.body.asFormUrlEncoded
-      postVals.map { args => 
-           val username = args("username").head
-           val password = args("password").head
-           //Ok(s"$username logged in with $password.")
-           Redirect(routes.Faculty.facultyProfile())
-           }.getOrElse((Redirect(routes.Faculty.facultyProfile()))) // This will return the user back 
-           // to the login page. Ok("Oops"))
+  //function to validate a faculty's login information
+  def validateFaculty = Action.async { implicit request =>
+    val validVals = request.body.asFormUrlEncoded
+    var validUsername:String = ""
+      var validPassword:String = ""
+     validVals.map { args => 
+      validUsername = args("username").head
+      validPassword = args("password").head
+      }.getOrElse(Redirect(routes.Faculty.loginFaculty()))
+      model.validateFaculty(validUsername, validPassword).map {  ofacultyId =>
+        ofacultyId match {
+          case Some(facultyid) =>
+            sessionId = facultyid
+            Redirect(routes.Faculty.facultyProfile())
+          case None =>
+            Redirect(routes.Faculty.loginFaculty())
+        }
       }
+    }
 
-      //functions below are copied from Lewis from TaskList5.scala
-  //     def validateFaculty = Action.async { implicit request =>
-  //   withJsonBody[UserData] { ud =>
-  //     model.validateFaculty(ud.username, ud.password).map { ouserId =>
-  //       ouserId match {
-  //         case Some(userid) =>
-  //           Ok(Json.toJson(true))
-  //             .withSession("username" -> ud.username, "userid" -> userid.toString, "csrfToken" -> play.filters.csrf.CSRF.getToken.map(_.value).getOrElse(""))
-  //         case None =>
-  //           Ok(Json.toJson(false))
-  //       }
-  //     }
-  //   }
-  // }
+    //function to create a new faculty user
+def createFacultyUser = Action.async { implicit request =>
+    val createVals = request.body.asFormUrlEncoded
+    var createName:String = ""
+    var createUsername:String = ""
+    var createPassword:String = ""
+     createVals.map { args => 
+      createName = args("name").head
+      createUsername = args("username").head
+      createPassword = args("password").head
+    }.getOrElse(Redirect(routes.Faculty.loginFaculty()))
+    model.createFacultyUser(createName, createUsername, createPassword).map {  ofacultyId =>
+        ofacultyId match {
+          case Some(facultyid) =>
+            sessionId = facultyid
+            Redirect(routes.Faculty.facultyProfile())
+          case None =>
+            Redirect(routes.Faculty.facultyProfile())
+        }
+      }
+  }
 
-  // def createFacultyUser = Action.async { implicit request =>
-  //   withJsonBody[UserData] { ud => model.createFacultyUser(ud.username, ud.password).map { ouserId =>   
-  //     ouserId match {
-  //       case Some(userid) =>
-  //         Ok(Json.toJson(true))
-  //           .withSession("username" -> ud.username, "userid" -> userid.toString, "csrfToken" -> play.filters.csrf.CSRF.getToken.map(_.value).getOrElse(""))
-  //       case None =>
-  //         Ok(Json.toJson(false))
-  //     }
-  //   } }
-  // }
+  //function to get Faculty's courselist
+  def getFacultyCourses = Action.async { implicit request => 
+    model.getFacultyCourses(sessionId).map{ courses =>
+      courses match { 
+        case Some(courses) =>
+          courses.map(course => 
+            facultyCourselist += ((course.courseId, course.courseName, course.courseNumber, course.facultyId)))
+            Redirect(routes.Faculty.facultyProfile())
+        case None =>
+          Redirect(routes.Faculty.facultyProfile())
+    }}
       
-//def validateFacultyPost() = Action { request =>
-//      val postvals = request.body.asFormUrlEncoded
-//      postvals.map { args => 
-//           val username = args("username").head
-//           val password = args("password").head
-//           Redirect(routes.Application.faculty())
-           //Ok(s"$username logged in with $password.")
-//           }.getOrElse(Redirect(routes.Faculty.validateFacultyPost()))
-//      }
-
-  def index = Action { implicit request =>
-      val facultyMember = "John"
-      val password = 12345
-      Ok(views.html.facultyLogin())
   }
 
 }
