@@ -3,11 +3,17 @@
 
 @main("Login") {
 
-    <h2>Student Login Page</h2>
+    
+	<body style="background-color:#DC3545;"></body>
+
+	<style>
+        h3{text-align: center;}
+		h3{font-size: 40px;}
+    </style>
 
     <!-- These are the logins for Student-->
     <form method="post" action="/validateStudent">
-		<h3>Student Login</h3>
+		<h3 style="color:aliceblue;">Student Login</h3>
 		<br>
 		Username: <input type="text" name="username"></input>
 		<br>
@@ -17,7 +23,7 @@
 	</form>
 	<br>
     <form method="post" action="/createStudentUser">
-		<h3>Student Create User</h3>
+		<h3 style="color:aliceblue;">New Student? Student Create User</h3>
 		<br>
 		Student Name: <input type="text" name="name"></input>
 		<br>
@@ -29,3 +35,7 @@
 	</form>
 
 }
+
+
+
+
