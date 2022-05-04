@@ -1,0 +1,15 @@
+@* rating test page *@
+@(courses: Seq[String])(implicit request: RequestHeader, flash: Flash)
+
+
+@main("Ratings") {
+
+    <h2>Course List</h2>
+
+	<!-- current rating -->
+	<br>
+    <!-- form for getting ratings -->
+	@for((course, c) <- courses.zipWithIndex) {
+		<li>@course</li>
+	}
+}

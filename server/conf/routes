@@ -33,13 +33,10 @@ GET         /loginFaculty       controllers.Faculty.loginFaculty()
 POST       /validateStudent    controllers.Student.validateStudent()
 GET        /StudentProfile     controllers.Student.studentProfile()
 GET        /Faculty/           controllers.Application.faculty()
+
 POST        /validateFaculty    controllers.Faculty.validateFaculty()
 GET        /FacultyProfile     controllers.Faculty.facultyProfile()
 GET        /Ratings/           controllers.Application.ratings()
-
-# Goes to rating page
-GET        /ratings/            controllers.Ratings.ratings()
-# "rate" action from Ratings controller 
 POST        /rate                controllers.Ratings.rate()
-
+GET        /Courses/          controllers.Courses.courseList()
 
