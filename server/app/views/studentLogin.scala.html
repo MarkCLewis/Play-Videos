@@ -5,8 +5,8 @@
 
     <h2>Student Login Page</h2>
 
-    <!-- These are the logins for Faculty-->
-    <form method="get" action="/validateStudent">
+    <!-- These are the logins for Student-->
+    <form method="post" action="/validateStudent">
 		<h3>Student Login</h3>
 		<br>
 		Username: <input type="text" name="username"></input>
@@ -16,8 +16,10 @@
 		<input type="submit"></input>
 	</form>
 	<br>
-    <form method="get" action="/createStudentUser">
+    <form method="post" action="/createStudentUser">
 		<h3>Student Create User</h3>
+		<br>
+		Student Name: <input type="text" name="name"></input>
 		<br>
 		Username: <input type="text" name="username"></input>
 		<br>

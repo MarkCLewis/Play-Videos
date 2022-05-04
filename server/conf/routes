@@ -10,60 +10,7 @@ GET		/productRE/$prodType<[a-z]{2}\d\d>/:prodNum controllers.Application.product
 GET		/random							controllers.Application.randomNumber
 GET		/randomString/:length			controllers.Application.randomString(length: Int)			
 
-# Routes for version 1
-GET		/login1							controllers.TaskList1.login
-GET		/validateGet1					controllers.TaskList1.valdiateLoginGet(username, password)
-POST	/validatePost1					controllers.TaskList1.validateLoginPost
-POST	/createUser1					controllers.TaskList1.createUser
-POST	/createUserForm1				controllers.TaskList1.createUserForm
-GET		/taskList1						controllers.TaskList1.taskList
-GET		/logout1						controllers.TaskList1.logout
-POST	/addTask1						controllers.TaskList1.addTask
-POST	/deleteTask1					controllers.TaskList1.deleteTask
 
-#Routes for version 2
-GET		/load2							controllers.TaskList2.load
-GET		/login2							controllers.TaskList2.login
-GET		/taskList2						controllers.TaskList2.taskList
-POST	/validate2						controllers.TaskList2.validate
-POST	/create2						controllers.TaskList2.createUser
-POST	/deleteTask2					controllers.TaskList2.delete
-POST	/addTask2						controllers.TaskList2.addTask
-GET		/logout2						controllers.TaskList2.logout
-GET		/generatedJS					controllers.TaskList2.generatedJS
-
-#Routes for version 3
-GET   /load3            controllers.TaskList3.load
-POST	/validate3						controllers.TaskList3.validate
-POST	/create3						controllers.TaskList3.createUser
-GET 	/taskList3						controllers.TaskList3.taskList
-POST	/addTask3						controllers.TaskList3.addTask
-POST	/deleteTask3					controllers.TaskList3.delete
-GET  /logout3						controllers.TaskList3.logout
-
-#Routes for WebSocket chat Application
-GET   /chat             controllers.WebSocketChat.index
-GET   /chatSocket       controllers.WebSocketChat.socket
-
-#Routes for version 4
-GET   /load4            controllers.TaskList4.load
-
-#Routes for version 5
-GET   /load5            controllers.TaskList5.load
-POST	/validate51						controllers.TaskList5.validateStudent
-POST	/validate52						controllers.TaskList5.validateFaculty
-POST	/create51						controllers.TaskList5.createStudentUser
-POST	/create52						controllers.TaskList5.createFacultyUser
-GET 	/taskList5						controllers.TaskList5.taskList
-POST	/addTask5						controllers.TaskList5.addTask
-POST	/deleteTask5					controllers.TaskList5.delete
-GET  /logout5						controllers.TaskList5.logout
-
-#Routes for version 6
-GET   /load6            controllers.TaskList6.load
-
-#Routes for version 7
-GET   /load7            controllers.TaskList7.load
 
 
 # Prefix must match `play.assets.urlPrefix`
@@ -72,20 +19,24 @@ GET        /versionedAssets/*file        controllers.Assets.versioned(path="/pub
 
 # Pages
 
+GET        /LoadStudent        controllers.Student.load()
 GET        /Login/             controllers.Application.login()
 GET        /Student/           controllers.Application.student()
-GET        /ValidateStudent    controllers.Student.validateStudent(username, password)
-GET        /ValidateStudentPost    controllers.Student.validateStudentPost()
-GET        /StudentProfile     controllers.Student.profile()
+POST       /createStudentUser  controllers.Student.createStudentUser()
+GET       /createStudentUser  controllers.Student.createStudentUser()
+POST        /createFacultyUser controllers.Faculty.createFacultyUser()
+GET         /createFacultyUser controllers.Faculty.createFacultyUser()
+GET        /studentLogin       controllers.Student.loginStudent()
+GET        /loginStudent        controllers.Student.loginStudent()
+GET         /loginFaculty       controllers.Faculty.loginFaculty()
+
+POST       /validateStudent    controllers.Student.validateStudent()
+GET        /StudentProfile     controllers.Student.studentProfile()
 GET        /Faculty/           controllers.Application.faculty()
-GET        /ValidateFaculty    controllers.Faculty.validateFaculty(username, password)
-GET        /ValidateFacultyPost    controllers.Faculty.validateFacultyPost()
-GET        /FacultyProfile     controllers.Faculty.profile()
-GET        /Ratings/          controllers.Ratings.ratings()
-GET        /Courses/          controllers.Courses.courseList()
 
-
-# Post Actions
+POST        /validateFaculty    controllers.Faculty.validateFaculty()
+GET        /FacultyProfile     controllers.Faculty.facultyProfile()
+GET        /Ratings/           controllers.Application.ratings()
 POST        /rate                controllers.Ratings.rate()
-
+GET        /Courses/          controllers.Courses.courseList()
 

@@ -34,7 +34,7 @@ class Application @Inject()(cc: ControllerComponents) extends AbstractController
     }
 
   def faculty() = Action { implicit request =>
-      Ok(views.html.facultyLogin1())
+      Ok(views.html.facultyLogin())
     }
 
 }

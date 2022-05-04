@@ -2,56 +2,97 @@ package controllers
 
 import javax.inject._
 
+import play.api.mvc._
+import play.api.i18n._
+import models.TaskListInMemoryModel
+import play.api.libs.json._
+import models._
 
+import play.api.db.slick.DatabaseConfigProvider
+import scala.concurrent.ExecutionContext
+import play.api.db.slick.HasDatabaseConfigProvider
+import slick.jdbc.JdbcProfile
+import slick.jdbc.PostgresProfile.api._
+import scala.concurrent.Future
 
 import shared.SharedMessages
 import play.api.mvc._
 import play.api.i18n._
+import scala.collection.mutable.ListBuffer
+import scala.collection.mutable
 
 @Singleton
-class Faculty @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
+class Faculty @Inject()(protected val dbConfigProvider: DatabaseConfigProvider, cc: ControllerComponents)(implicit ec: ExecutionContext) 
+    extends AbstractController(cc) with HasDatabaseConfigProvider[JdbcProfile] {
 
+  private val model = new TaskListDatabaseModel(db)
+  private var sessionId:Int = 0
+  private var facultyCourselist:ListBuffer[(Int, String, String, Int)] = mutable.ListBuffer()
+
+  //display student login page
   def loginFaculty = Action { implicit request =>
-    
-      Ok(views.html.facultyLogin1())
-
+      Ok(views.html.facultyLogin())
   }
 
-  def validateFaculty(username: String, password: String) = Action {
-    Ok(s"$username logged in with $password.")
-  }
-
-  def profile() = Action {  implicit request =>
+  //display faculty profile 
+  def facultyProfile() = Action {  implicit request =>
       Ok(views.html.facultyProfile())
-
   }
 
-// Need to have a page of both valid and invalid outcomes. STILL IN PROGRESS with the outcomes.
-// It will only lead to the profile funtion.
-  def validateFacultyPost() = Action { request =>
-      val postVals = request.body.asFormUrlEncoded
-      postVals.map { args => 
-           val username = args("username").head
-           val password = args("password").head
-           //Ok(s"$username logged in with $password.")
-           Redirect(routes.Faculty.profile())
-           }.getOrElse((Redirect(routes.Faculty.profile()))) // This witl return the user back 
-           // to the login page. Ok("Oops"))
+  //function to validate a faculty's login information
+  def validateFaculty = Action.async { implicit request =>
+    val validVals = request.body.asFormUrlEncoded
+    var validUsername:String = ""
+      var validPassword:String = ""
+     validVals.map { args => 
+      validUsername = args("username").head
+      validPassword = args("password").head
+      }.getOrElse(Redirect(routes.Faculty.loginFaculty()))
+      model.validateFaculty(validUsername, validPassword).map {  ofacultyId =>
+        ofacultyId match {
+          case Some(facultyid) =>
+            sessionId = facultyid
+            Redirect(routes.Faculty.facultyProfile())
+          case None =>
+            Redirect(routes.Faculty.loginFaculty())
+        }
       }
-//def validateFacultyPost() = Action { request =>
-//      val postvals = request.body.asFormUrlEncoded
-//      postvals.map { args => 
-//           val username = args("username").head
-//           val password = args("password").head
-//           Redirect(routes.Application.faculty())
-           //Ok(s"$username logged in with $password.")
-//           }.getOrElse(Redirect(routes.Faculty.validateFacultyPost()))
-//      }
+    }
 
-  def index = Action { implicit request =>
-      val facultyMember = "John"
-      val password = 12345
-      Ok(views.html.facultyLogin1())
+    //function to create a new faculty user
+def createFacultyUser = Action.async { implicit request =>
+    val createVals = request.body.asFormUrlEncoded
+    var createName:String = ""
+    var createUsername:String = ""
+    var createPassword:String = ""
+     createVals.map { args => 
+      createName = args("name").head
+      createUsername = args("username").head
+      createPassword = args("password").head
+    }.getOrElse(Redirect(routes.Faculty.loginFaculty()))
+    model.createFacultyUser(createName, createUsername, createPassword).map {  ofacultyId =>
+        ofacultyId match {
+          case Some(facultyid) =>
+            sessionId = facultyid
+            Redirect(routes.Faculty.facultyProfile())
+          case None =>
+            Redirect(routes.Faculty.facultyProfile())
+        }
+      }
+  }
+
+  //function to get Faculty's courselist
+  def getFacultyCourses = Action.async { implicit request => 
+    model.getFacultyCourses(sessionId).map{ courses =>
+      courses match { 
+        case Some(courses) =>
+          courses.map(course => 
+            facultyCourselist += ((course.courseId, course.courseName, course.courseNumber, course.facultyId)))
+            Redirect(routes.Faculty.facultyProfile())
+        case None =>
+          Redirect(routes.Faculty.facultyProfile())
+    }}
+      
   }
 
 }
