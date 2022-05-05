@@ -66,17 +66,30 @@ class Student @Inject()(protected val dbConfigProvider: DatabaseConfigProvider, 
 
     //display student profile page
   def studentProfile = Action { implicit request =>
-      // println("before call")
-      // val test = model.getAllCourses()
-      // println(test)
-      // println("after call")
+      //println("before call")
+      //val test = model.getAllCourses()
+     // println(test)
+      //println("after call")
       //model.addCourse(4, 4) //model.addCourse works!!
       //model.addRating(4, 4, Some(1)) //model.addRating works!!!
       //model.removeCourse(4, 4) //model.removeCourse works!!!
-      //var test:Future[Vector[CourseRow]] = model.getStudentCourses(4)
-      //println(test)
+      //var test2:Future[Vector[CourseRow]] = model.getStudentCourses(4)
+      //println(test2)
       Ok(views.html.studentProfile())
   }
+
+  //display course page
+  def coursePage() = Action { implicit request =>
+    model.getAllCourses()
+    courselist += ((1, "Course", "1333", 4),(2,"Another Course","3333",1312321))
+    Ok(views.html.courseList("Full Course List")(getAllCoursesList))
+  }  
+
+  //displays student course page, not currently working
+  def studentCoursePage() = Action { implicit request =>
+    model.getAllCourses()
+    Ok(views.html.courseList("Student Courses")(getAllCoursesList))
+  }  
 
   def getAllCoursesList(): ListBuffer[(Int, String, String, Int)] =  {
     courselist

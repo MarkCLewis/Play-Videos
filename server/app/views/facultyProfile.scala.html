@@ -20,6 +20,22 @@
 
     <br></br> 
 	<h3>Professor, what would you like to do?</h3>
+	
+	<form action="@routes.Student.coursePage()">
+		<input type="submit" value="View course list" />
+	</form>
+	<br>
+
+	<form action="@routes.Student.studentCoursePage()">
+		<input type="submit" value="View current courses" />
+	</form>
+	<br>
+	
+	<form action="@routes.Ratings.ratings()">
+		<input type="submit" value="Ratings Page" />
+	</form>
+	<br>
+
 		<select name="Options" size="7">
 			<option value="PPast"> View past courses </option>
 			<option value="PCurrent"> View current courses </option>

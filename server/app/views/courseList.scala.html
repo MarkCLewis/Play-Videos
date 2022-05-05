@@ -1,15 +1,28 @@
-@* rating test page *@
-@(courses: Seq[String])(implicit request: RequestHeader, flash: Flash)
+@* Course display page *@
+@(title: String)(courses: Seq[(Int, String, String, Int)])(implicit request: RequestHeader, flash: Flash)
 
 
-@main("Ratings") {
-	<body style="background-color:#DC3545;"></body>
-    <h2>Course List</h2>
+@main("CourseList") {
+	<body style="background-color:#DC3545;"></body> 
+    
 
-	<!-- current rating -->
+	<style>
+		p{color:aliceblue;}
+		p{font-size: 20px;}
+		h2{color:aliceblue;}
+    </style>
+
+	<!-- Can be full course list or course list for individual student -->
+	<h2>@title</h2>
+
 	<br>
-    <!-- form for getting ratings -->
-	@for((course, c) <- courses.zipWithIndex) {
-		<li>@course</li>
+    <!-- Lists courses -->
+	@for(((id, name, number, faculty), c) <- courses.zipWithIndex) {
+		<hr style="height:5px;color:aliceblue;background-color:aliceblue">
+		<p>Course: @name <br>
+			Id: @id <br>
+			Number: @number <br>
+		</p>
 	}
+	
 }

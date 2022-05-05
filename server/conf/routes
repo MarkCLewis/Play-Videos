@@ -34,9 +34,10 @@ POST       /validateStudent    controllers.Student.validateStudent()
 GET        /StudentProfile     controllers.Student.studentProfile()
 GET        /Faculty/           controllers.Application.faculty()
 
-POST        /validateFaculty    controllers.Faculty.validateFaculty()
+POST       /validateFaculty    controllers.Faculty.validateFaculty()
 GET        /FacultyProfile     controllers.Faculty.facultyProfile()
 GET        /Ratings/           controllers.Ratings.ratings()
-POST        /rate                controllers.Ratings.rate()
-GET        /Courses/          controllers.Courses.courseList()
+POST       /rate               controllers.Ratings.rate()
+GET        /Courses/           controllers.Student.coursePage()
+GET        /CurrentCourses/    controllers.Student.studentCoursePage()
 
