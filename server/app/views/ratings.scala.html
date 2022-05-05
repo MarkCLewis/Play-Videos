@@ -3,7 +3,7 @@
 
 
 @main("Ratings") {
-
+	<body style="background-color:#DC3545;"></body>
     <h2>Rating Test Page</h2>
 
 	<!-- current rating -->
@@ -13,7 +13,7 @@
 	Current Rating: @rating
     <!-- form for getting ratings -->
 	<form method="post" action="@routes.Ratings.rate()">
-		<!-- @helper.CSRF.formField -->
+		<!-- helper.CSRF.formField -->
 		<input type="number" name="newRating"></input>
 		<input type="submit"></input>
 	</form>
