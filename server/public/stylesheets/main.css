@@ -1,3 +1,121 @@
-h1 {
-	text-size: 800px;
-}
+body {
+	
+	background-color: #DC3545;
+	margin: 0;
+	padding: 0;
+	
+  }
+  h3{
+	text-align: center;
+	font-size: 40px;
+  }
+   
+  * {
+	box-sizing: border-box;
+  }
+   
+  /* style the container */
+  #container {
+	background-color: darkred;
+	text-align: center;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-top: -50px;
+	margin-left: -70px;
+	transform: translate(-50%, -50%);
+	align-items: center;
+	border-width: 60%;
+	border: 2px solid white;
+	border-radius: 8px;
+	padding: 5px;
+	width: 55%;
+	
+   
+  }
+   
+  /* style inputs and link buttons */
+  input,
+  .btn {
+	width: 50%;
+	padding: 12px;
+	border: 1px solid white;
+	border-radius: 4px;
+	margin: 5px 0;
+	opacity: 0.85;
+	display: inline-block;
+	font-size: 17px;
+	line-height: 20px;
+	text-decoration: none; /* remove underline from anchors */
+  }
+   
+  input:hover,
+  .btn:hover {
+	opacity: 1;
+  }
+   
+  /* style the submit button */
+  input[type="submit"] {
+	background-color: #DC3545;
+	color: white;
+	cursor: pointer;
+  }
+   
+  input[type="submit"]:hover {
+	background-color: rgb(127, 24, 24);
+  }
+  h1 {
+	margin-left: 30px;
+  }
+  p {
+	text-align: center;
+  }
+  /* Two-column layout */
+  .col {
+	float: left;
+	width: 50%;
+	margin: auto;
+	padding: 0 50px;
+	margin-top: 6px;
+  }
+   
+  /* Clear floats after the columns */
+  .row:after {
+	content: "";
+	display: table;
+	clear: both;
+  }
+   
+  /* vertical line */
+  .vl {
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%);
+	border: 2px solid #ddd;
+	height: 175px;
+  }
+   
+  /* text inside the vertical line */
+  .vl-innertext {
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #f1f1f1;
+	border: 1px solid #ccc;
+	border-radius: 50%;
+	padding: 8px 10px;
+  }
+   
+  /* hide some text on medium and large screens */
+  .hide-md-lg {
+	display: none;
+  }
+
+   
+  /* bottom container */
+  .bottom-container {
+	text-align: center;
+	background-color: #666;
+	border-radius: 0px 0px 4px 4px;
+  }
+   
