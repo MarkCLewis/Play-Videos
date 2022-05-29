@@ -24,4 +24,20 @@ class Application @Inject()(cc: ControllerComponents) extends AbstractController
   def randomString(length: Int) = Action {
     Ok(util.Random.nextString(length))
   }
+
+  def login() = Action {
+      Ok("Login page here.")
+    }
+
+  def student() = Action { implicit request =>
+      Ok(views.html.studentLogin())
+    }
+
+  def faculty() = Action { implicit request =>
+      Ok(views.html.facultyLogin())
+    }
+
 }
+
+
+

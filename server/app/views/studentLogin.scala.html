@@ -1,0 +1,46 @@
+@* login1 Template File *@
+@()(implicit flash:play.api.mvc.Flash)
+
+@main("Login") {
+
+    
+	<body style="background-color:#DC3545;"></body>
+
+	<style>
+
+    </style>
+
+    <!-- These are the logins for Student-->
+	<div id = "container">
+    <form method="post" action="/validateStudent">
+		<h3 style="color:aliceblue;">Student Login</h3>
+		<br>
+		Username: <input type="text" name="username"></input>
+		<br>
+		<br>
+		Password: <input type="password" name="password"></input>
+		<br>
+		<br>
+		<input type="submit"></input>
+	</form>
+	<br>
+    <form method="post" action="/createStudentUser">
+		<h3 style="color:aliceblue;">New Student? Student Create User</h3>
+		<br>
+		Student Name: <input type="text" name="name"></input>
+		<br>
+		<br>
+		Username: <input type="text" name="username"></input>
+		<br>
+		<br>
+		Password: <input type="password" name="password"></input>
+		<br>
+		<br>
+		<input type="submit"></input>
+	</form>
+	</div>
+}
+
+
+
+

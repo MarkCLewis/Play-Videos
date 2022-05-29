@@ -1,0 +1,28 @@
+@* Course display page *@
+@(title: String)(courses: Seq[(Int, String, String, Int)])(implicit request: RequestHeader, flash: Flash)
+
+
+@main("CourseList") {
+	<body style="background-color:#DC3545;"></body> 
+    
+
+	<style>
+		p{color:aliceblue;}
+		p{font-size: 20px;}
+		h2{color:aliceblue;}
+    </style>
+
+	<!-- Can be full course list or course list for individual student -->
+	<h2>@title</h2>
+
+	<br>
+    <!-- Lists courses -->
+	@for(((id, name, number, faculty), c) <- courses.zipWithIndex) {
+		<hr style="height:5px;color:aliceblue;background-color:aliceblue">
+		<p>Course: @name <br>
+			Id: @id <br>
+			Number: @number <br>
+		</p>
+	}
+	
+}

@@ -1,16 +1,76 @@
 @(message: String)(implicit flash: Flash)
 
-@main("Play with Scala.js") {
-	<h2>Play and Scala.js share a same message</h2>
-	<ul>
-	  <li>Play shouts out: <em>@message</em></li>
-	  <li>Scala.js shouts out: <em id="scalajsShoutOut"></em></li>
-	</ul>
+@main("CS Hub.js") {
+	<br></br>
+	<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+	 <body>
+		<img src="https://www.division3tennis.com/wp-content/uploads/2019/02/TU-Logo.png" alt="Simply Easy Learning" width="300" height="200">
+	 </body>
 
-	<p id="randomText">Click for a new random number: <span id="random">4</span></p>
+	 <style>
+    	body{text-align: center;}
+    </style>
+
 	
-	<input id="lengthValue" type="text" value="5">
-	<p id="randomStringText">Click for a new random string: <span id="randomString">word</span></p>
+
+	<style>
+        h2{text-align: center;}
+		h2{font-size: 50px;}
+    </style>
+
+
+	<br></br>
+
+	<style>
+        h3{text-align: center;}
+		h3{font-size: 40px;}
+    </style>
+
+	<br></br>
+
+	<br></br>
+
+
+
+	<h2 style="color:aliceblue; font-size: 70px;">CS Hub</h2> <!-- Make bigger-->
+	<h3 style="color:aliceblue;">Login As:</h3>
+	<body style="background-color:#DC3545;"></body>
+
+	<!-- The links of each category -->
+
+	<style>
+         nav{text-align: center;}
+		 nav{font-size: 40px;}
+		 
+    </style>
+
+
+
+	<nav>
+		<!--<a href="/login">Login</a> |!--->
+		<a href="/Student/">Student</a> | 
+		<a href="/Faculty/">Faculty</a> 
+		<!--<a href="/ratings/">Ratings</a>-->
+	</nav>
+
+	<!-- I made this script to make the transiton to each page
+	     Function calls to the name given to the link and loc.replace
+		 is to the website of the given page. -->
+	<script> function Faculty() {
+			location.replace("http://localhost:9000/Faculty/")
+		}
+	</script>
+
+    <script> function Student() {
+	        location.replace("http://localhost:9000/Student/")
+        }
+    </script>
+
+	<br></br> 
+
 	
-	<script src="@routes.Assets.versioned("javascript/basicStuff.js")"></script>
+
+	
+	
+
 }
